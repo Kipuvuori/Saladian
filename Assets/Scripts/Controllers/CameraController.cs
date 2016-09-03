@@ -2,7 +2,7 @@
 
 public class CameraController : MonoBehaviour {
     private const string camera_name = "Main Camera";
-    public static new Camera camera
+    public static Camera MainCamera
     {
         get
         {

@@ -8,7 +8,7 @@ public class BackgroundController : UIController
 	// Use this for initialization
 	void Start () {
         this.sprite_renderer = GetComponent<SpriteRenderer>();
-        this.camera = CameraController.camera;
+        this.camera = CameraController.MainCamera;
         this.Init();
 	}
 
