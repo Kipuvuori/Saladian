@@ -4,18 +4,20 @@ using System.Collections;
 public class MovementController : ObjectController
 {
     private const int full_cirle = 360;
+    private Camera MainCamera;
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    protected new void Start () {
+        base.Start();
+        this.MainCamera = CameraController.MainCamera;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-    public Vector3 currentLocations()
+    public Vector3 currentPosition()
     {
         return transform.position;
     }
@@ -27,9 +29,9 @@ public class MovementController : ObjectController
 
     public Vector3 move(int direction, float distance = 1.0f)
     {
-        
+        Vector3 current_position = this.currentPosition();
         if (distance < 0) direction -= full_cirle / 2; // If distance is negative we go to opposite direction.
-        else if (distance == 0) return this.currentLocations(); // If distance is zero we stay put.
+        else if (distance == 0) return current_position; // If distance is zero we stay put.
         distance = Mathf.Abs(distance); // Distance is always positive
 
         // Setting directional degrees to 0 - 360
@@ -38,16 +40,29 @@ public class MovementController : ObjectController
         //transform.Rotate(direction, Space.World);
         Vector3 current_rotation = new Vector3(0, 0, direction);
         this.transform.localEulerAngles = current_rotation;
-        this.transform.position += transform.right * distance;
-        return this.currentLocations();
+
+        current_position = current_position + transform.right * distance;
+        return move(current_position);
+    }
+
+    private Vector3 move(Vector3 position, bool confine_to_camera = true)
+    {
+        if(confine_to_camera)
+        {
+            Vector3 pos = this.MainCamera.WorldToViewportPoint(position);
+            pos.x = Mathf.Clamp01(pos.x);
+            pos.y = Mathf.Clamp01(pos.y);
+            position = this.MainCamera.ViewportToWorldPoint(pos);
+        }
+        transform.position = position;
+        return position;
     }
 
     public void toMiddleOfScreen()
     {
-        Camera camera = CameraController.MainCamera;
-        float near_clip_plane = camera.nearClipPlane;
+        float near_clip_plane = this.MainCamera.nearClipPlane;
         Vector3 screen_point = new Vector3(Screen.width / 2, Screen.height / 2, near_clip_plane);
-        Vector3 camera_position = camera.ScreenToWorldPoint(screen_point);
+        Vector3 camera_position = this.MainCamera.ScreenToWorldPoint(screen_point);
         camera_position.z = this.transform.position.z;
         transform.position = camera_position;
     }

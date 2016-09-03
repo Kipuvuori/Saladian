@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour {
         }
     }
     // Use this for initialization
-    void Start () {
+    protected void Start () {
 	
 	}
 	

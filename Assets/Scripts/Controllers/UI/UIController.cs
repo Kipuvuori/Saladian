@@ -4,7 +4,7 @@ using System.Collections;
 public class UIController : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	protected void Start () {
 	
 	}
 	

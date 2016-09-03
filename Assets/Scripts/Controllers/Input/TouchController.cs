@@ -3,8 +3,8 @@ using System.Collections;
 
 public class TouchController : InputController {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    protected new void Start () {
 	
 	}
 	

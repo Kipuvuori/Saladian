@@ -3,7 +3,7 @@
 public class ObjectController : MonoBehaviour {
     protected DataObject data { get; set; }
     // Use this for initialization
-    void Start () {
+    protected void Start () {
         data = new DataObject();
 	}
 	

@@ -2,13 +2,14 @@
 
 public class BackgroundController : UIController
 {
-    private new Camera camera;
+    private Camera MainCamera;
     private SpriteRenderer sprite_renderer;
     private const int z = 100;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    protected new void Start () {
+        base.Start();
         this.sprite_renderer = GetComponent<SpriteRenderer>();
-        this.camera = CameraController.MainCamera;
+        this.MainCamera = CameraController.MainCamera;
         this.Init();
 	}
 
@@ -30,8 +31,8 @@ public class BackgroundController : UIController
     */
     private void Resize()
     {
-        float camera_height = (float)this.camera.pixelHeight;
-        float camera_width = (float)this.camera.pixelWidth;
+        float camera_height = (float)this.MainCamera.pixelHeight;
+        float camera_width = (float)this.MainCamera.pixelWidth;
 
         float sprite_height = (float)this.sprite_renderer.sprite.bounds.size.x;
         float sprite_width = (float)this.sprite_renderer.sprite.bounds.size.y;
@@ -50,9 +51,9 @@ public class BackgroundController : UIController
     */
     private void Reposition()
     {
-        float near_clip_plane = this.camera.nearClipPlane;
+        float near_clip_plane = this.MainCamera.nearClipPlane;
         Vector3 screen_point = new Vector3(Screen.width/2, Screen.height/2, near_clip_plane);
-        Vector3 camera_position = this.camera.ScreenToWorldPoint(screen_point);
+        Vector3 camera_position = this.MainCamera.ScreenToWorldPoint(screen_point);
         camera_position.z = z;
         transform.position = camera_position;
     }

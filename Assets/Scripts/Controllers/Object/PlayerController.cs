@@ -3,8 +3,9 @@
 public class PlayerController : ObjectController {
 
     private ShipController ship;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    protected new void Start () {
+        base.Start();
         data = new Player();
         this.ship = (ShipController) GetComponent(typeof(ShipController));
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");

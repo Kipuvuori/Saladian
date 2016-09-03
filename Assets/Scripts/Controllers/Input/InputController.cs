@@ -2,8 +2,8 @@
 
 public class InputController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    protected void Start () {
 	
 	}
 	

@@ -2,10 +2,11 @@
 
 public class ShipController : MovementController
 {
-    
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    protected new void Start () {
+        base.Start();
         data = new Ship();
 	}
 	
