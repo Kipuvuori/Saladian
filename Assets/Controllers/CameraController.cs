@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CameraController : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+    private const string camera_name = "Main Camera";
+    public static new Camera camera
+    {
+        get
+        {
+            return GameObject.Find(camera_name).GetComponent<Camera>();
+        }
+    }
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -12,6 +18,4 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 	
 	}
-
-
 }

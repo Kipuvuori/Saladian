@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class BackgroundController : MonoBehaviour {
-    private Camera camera;
+public class BackgroundController : UIController
+{
+    private new Camera camera;
     private SpriteRenderer sprite_renderer;
+    private const int z = 100;
 	// Use this for initialization
 	void Start () {
         this.sprite_renderer = GetComponent<SpriteRenderer>();
-        this.camera = GameController.camera;
+        this.camera = CameraController.camera;
         this.Init();
 	}
 
@@ -27,7 +28,7 @@ public class BackgroundController : MonoBehaviour {
      * Function Resize
      * for resizing sprite to fit camera.           
     */
-    void Resize()
+    private void Resize()
     {
         float camera_height = (float)this.camera.pixelHeight;
         float camera_width = (float)this.camera.pixelWidth;
@@ -47,12 +48,12 @@ public class BackgroundController : MonoBehaviour {
      * Function Reposition
      * for repositioning sprite to middle of the camera.           
     */
-    void Reposition()
+    private void Reposition()
     {
         float near_clip_plane = this.camera.nearClipPlane;
         Vector3 screen_point = new Vector3(Screen.width/2, Screen.height/2, near_clip_plane);
         Vector3 camera_position = this.camera.ScreenToWorldPoint(screen_point);
-        camera_position.z = -1;
+        camera_position.z = z;
         transform.position = camera_position;
     }
 }
