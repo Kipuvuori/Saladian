@@ -10,6 +10,7 @@ public class InputController : Controller
     {
         base.Start();
         this.MainCamera = CameraController.MainCamera;
+        if (this.MainCamera == null) Debug.LogError("No MainCamera for the InputController!");
         this.selected = null;
     }
 

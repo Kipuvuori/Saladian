@@ -83,10 +83,13 @@ public class GameController : Controller
         GameObject game_object = new GameObject("Input");
 
         Type type = typeof(MouseController);
-        MouseController controller = (MouseController)game_object.AddComponent(typeof(MouseController));
-        controllers.Add(type.FullName, controller);
+        MouseController mouse_controller = (MouseController)game_object.AddComponent(typeof(MouseController));
+        controllers.Add(type.FullName, mouse_controller);
+
+        type = typeof(TouchController);
+        TouchController touch_controller = (TouchController) game_object.AddComponent(typeof(TouchController));
+        controllers.Add(type.FullName, touch_controller);
 
         this.input = new UserInput(game_object, controllers);
-
     }
 }

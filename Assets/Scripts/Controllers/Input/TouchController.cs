@@ -5,20 +5,25 @@ public class TouchController : InputController {
 
     // Use this for initialization
     protected new void Start () {
-	
-	}
+        base.Start();
+    }
 	
     void Update()
     {
-        if (Input.touchCount > 0) this.leftButtonDown();
-        else this.leftButtonUp();
+        
+        if (Input.touchCount > 0)
+        {
+            this.touchDown();
+        }
+        else this.touchUp();
     }
 
-    void leftButtonDown()
+    void touchDown()
     {
-        this.overGameObject(Input.GetTouch(0).position);
+        Vector3 position = Input.GetTouch(0).position;
+        this.overGameObject(position);
     }
-    void leftButtonUp()
+    void touchUp()
     {
         this.releaseGameObject();
     }
