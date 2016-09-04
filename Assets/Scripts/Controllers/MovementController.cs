@@ -45,7 +45,7 @@ public class MovementController : ObjectController
         return move(current_position);
     }
 
-    private Vector3 move(Vector3 position, bool confine_to_camera = true)
+    public Vector3 move(Vector3 position, bool confine_to_camera = true)
     {
         if(confine_to_camera)
         {

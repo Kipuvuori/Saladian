@@ -14,12 +14,18 @@ public class PlayerController : ObjectController {
 	
 	// Update is called once per frame
 	void Update () {
-        test_movement();
+        //test_movement();
     }
 
     void test_movement()
     {
         int direction = Random.Range(0, 360);
         this.ship.move(direction, 0.1f);
+    }
+
+    public void positionChanged(Vector3 new_position)
+    {
+        new_position.z = 0;
+        this.ship.move(new_position);
     }
 }

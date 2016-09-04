@@ -8,8 +8,18 @@ public class TouchController : InputController {
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Update()
+    {
+        if (Input.touchCount > 0) this.leftButtonDown();
+        else this.leftButtonUp();
+    }
+
+    void leftButtonDown()
+    {
+        this.overGameObject(Input.GetTouch(0).position);
+    }
+    void leftButtonUp()
+    {
+        this.releaseGameObject();
+    }
 }
