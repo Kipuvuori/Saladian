@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KeyboardController : MonoBehaviour {
+public class Controller : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	protected void Start () {
 	
 	}
 	

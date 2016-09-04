@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class BackgroundController : MonoBehaviour {
-    private Camera camera;
+public class BackgroundController : UIController
+{
+    private Camera MainCamera;
     private SpriteRenderer sprite_renderer;
-	// Use this for initialization
-	void Start () {
+    private const int z = 100;
+    // Use this for initialization
+    protected new void Start () {
+        base.Start();
         this.sprite_renderer = GetComponent<SpriteRenderer>();
-        this.camera = GameController.camera;
+        this.MainCamera = CameraController.MainCamera;
         this.Init();
 	}
 
     private void Init()
     {
+        this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Square");
         this.sprite_renderer.color = Color.black; // Setting bacground sprite color to black
         this.Resize();
         this.Reposition();
@@ -27,10 +30,10 @@ public class BackgroundController : MonoBehaviour {
      * Function Resize
      * for resizing sprite to fit camera.           
     */
-    void Resize()
+    private void Resize()
     {
-        float camera_height = (float)this.camera.pixelHeight;
-        float camera_width = (float)this.camera.pixelWidth;
+        float camera_height = (float)this.MainCamera.pixelHeight;
+        float camera_width = (float)this.MainCamera.pixelWidth;
 
         float sprite_height = (float)this.sprite_renderer.sprite.bounds.size.x;
         float sprite_width = (float)this.sprite_renderer.sprite.bounds.size.y;
@@ -47,12 +50,12 @@ public class BackgroundController : MonoBehaviour {
      * Function Reposition
      * for repositioning sprite to middle of the camera.           
     */
-    void Reposition()
+    private void Reposition()
     {
-        float near_clip_plane = this.camera.nearClipPlane;
+        float near_clip_plane = this.MainCamera.nearClipPlane;
         Vector3 screen_point = new Vector3(Screen.width/2, Screen.height/2, near_clip_plane);
-        Vector3 camera_position = this.camera.ScreenToWorldPoint(screen_point);
-        camera_position.z = -1;
+        Vector3 camera_position = this.MainCamera.ScreenToWorldPoint(screen_point);
+        camera_position.z = z;
         transform.position = camera_position;
     }
 }
