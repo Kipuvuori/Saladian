@@ -15,6 +15,7 @@ public class BackgroundController : UIController
 
     private void Init()
     {
+        this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Square");
         this.sprite_renderer.color = Color.black; // Setting bacground sprite color to black
         this.Resize();
         this.Reposition();

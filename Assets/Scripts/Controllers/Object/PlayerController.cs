@@ -7,7 +7,7 @@ public class PlayerController : ObjectController {
     protected new void Start () {
         base.Start();
         data = new Player();
-        this.ship = (ShipController) GetComponent(typeof(ShipController));
+        this.ship = this.transform.GetComponentInChildren<ShipController>();
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");
         this.ship.toMiddleOfScreen();
     }
