@@ -3,11 +3,12 @@
 public class ShipController : MovementController
 {
     private SpriteRenderer sprite_renderer;
+    private Ship data;
 
     // Use this for initialization
     protected new void Start () {
         base.Start();
-        data = new Ship();
+        this.data = new Ship();
         this.sprite_renderer = GetComponent<SpriteRenderer>();
         this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Ship");
     }

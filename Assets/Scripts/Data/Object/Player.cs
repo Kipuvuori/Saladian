@@ -1,5 +1,5 @@
 ﻿using System.Collections;
 
-public class Player : DataObject {
+public class Player {
     
 }

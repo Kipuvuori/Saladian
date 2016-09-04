@@ -11,24 +11,36 @@ public class GameController : Controller
     private GameElement player;
     private Dictionary<GameElement, GameElement> ships;
     private UserInput input;
+    private List<GameElement> obstacles;
+    private GameObject obstacle_mama;
 
     public const string CAMERA = "camera";
     public const string SPRITE = "sprite";
     public const string COLLIDER = "collider";
+
+    public float last_obstacle = 0;
 
     // Use this for initialization
     protected new void Start()
     {
         base.Start();
         this.ships = new Dictionary<GameElement, GameElement>();
+        this.obstacles = new List<GameElement>();
+        this.obstacle_mama = new GameObject("Obstacles");
         this.addElements();
         this.addInputs();
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        this.last_obstacle += Time.deltaTime;
+        if(this.last_obstacle >= 1)
+        {
+            this.addObstacle();
+            this.last_obstacle = 0;
+        }
+
+    }
 
     private void addElements()
     {
@@ -91,5 +103,17 @@ public class GameController : Controller
         controllers.Add(type.FullName, touch_controller);
 
         this.input = new UserInput(game_object, controllers);
+    }
+
+    private void addObstacle()
+    {
+        GameObject game_object = new GameObject("Obstacle");
+        game_object.transform.parent = this.obstacle_mama.transform;
+        SpriteRenderer sprite = (SpriteRenderer)game_object.AddComponent(typeof(SpriteRenderer));
+        ObstacleController controller = (ObstacleController)game_object.AddComponent(typeof(ObstacleController));
+        Dictionary<string, Component> components = new Dictionary<string, Component>();
+        components.Add(SPRITE, sprite);
+        GameElement obstacle = new GameElement(game_object, controller, components);
+        this.obstacles.Add(obstacle);
     }
 }
