@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : Controller
+{
     private const string camera_name = "Main Camera";
     public static Camera MainCamera
     {
@@ -10,8 +11,8 @@ public class CameraController : MonoBehaviour {
         }
     }
     // Use this for initialization
-    protected void Start () {
-	
+    protected new void Start () {
+        base.Start();
 	}
 	
 	// Update is called once per frame

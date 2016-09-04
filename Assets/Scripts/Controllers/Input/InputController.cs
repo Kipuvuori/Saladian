@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class InputController : MonoBehaviour {
+public class InputController : Controller
+{
 
     // Use this for initialization
-    protected void Start () {
-	
-	}
+    protected new void Start()
+    {
+        base.Start();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
