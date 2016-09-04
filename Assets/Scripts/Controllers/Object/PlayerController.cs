@@ -10,6 +10,7 @@ public class PlayerController : ObjectController {
         this.data = new Player();
         this.ship = this.transform.GetComponentInChildren<ShipController>();
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");
+        this.ship.sprite_renderer.color = Color.red;
         this.ship.toMiddleOfScreen();
     }
 	

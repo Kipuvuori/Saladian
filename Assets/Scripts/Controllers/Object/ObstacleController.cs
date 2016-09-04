@@ -12,35 +12,9 @@ public class ObstacleController : MovementController
         base.Start();
         this.data = new Obstacle();
         this.MainCamera = CameraController.MainCamera;
-        int axis = Random.Range(0, 2);
-        int side = Random.Range(0, 2);
-        float place = Random.Range(0f, 1f);
-        int direction_min = 0;
-        int direction_max = 361;
-        if(axis == 0)
-        {
-            direction_min = 0;
-            direction_max = 181;
-        }
-        else
-        {
-            direction_min = 90;
-            direction_max = 271;
-        }
-        if(side + axis == 1)
-        {
-            direction_min += 180;
-            direction_max += 180;
-        }
-
-        this.data.direction = Random.Range(direction_min, direction_max);
-
-        float x = (axis == 1) ? (float) side : place;
-        float y = (axis == 0) ? (float) side : place;
-        Vector3 position = this.MainCamera.ViewportToWorldPoint(new Vector3(x, y, 0f));
+        Vector3 position = this.MainCamera.ViewportToWorldPoint(this.data.start_viewport);
         position.z = 1;
         this.transform.position = position;
-        this.data.speed = Random.Range(Obstacle.SPEED_MIN, Obstacle.SPEED_MAX);
         this.sprite_renderer = GetComponent<SpriteRenderer>();
         this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Obstacle");
     }

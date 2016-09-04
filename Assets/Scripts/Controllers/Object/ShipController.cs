@@ -2,7 +2,7 @@
 
 public class ShipController : MovementController
 {
-    private SpriteRenderer sprite_renderer;
+    public SpriteRenderer sprite_renderer;
     private Ship data;
 
     // Use this for initialization
