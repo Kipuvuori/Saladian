@@ -1,5 +1,5 @@
 ﻿using System.Collections;
 
-public class Ship : DataObject {
+public class Ship {
 
 }

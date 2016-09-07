@@ -27,7 +27,7 @@ public class MovementController : ObjectController
         return transform.rotation;
     }
 
-    public Vector3 move(int direction, float distance = 1.0f)
+    public Vector3 move(int direction, float distance = 1.0f, bool confine_to_camera = true)
     {
         Vector3 current_position = this.currentPosition();
         if (distance < 0) direction -= full_cirle / 2; // If distance is negative we go to opposite direction.
@@ -42,7 +42,7 @@ public class MovementController : ObjectController
         this.transform.localEulerAngles = current_rotation;
 
         current_position = current_position + transform.right * distance;
-        return move(current_position);
+        return move(current_position, confine_to_camera);
     }
 
     public Vector3 move(Vector3 position, bool confine_to_camera = true)

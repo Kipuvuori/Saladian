@@ -3,12 +3,14 @@
 public class PlayerController : ObjectController {
 
     private ShipController ship;
+    private Player data;
     // Use this for initialization
     protected new void Start () {
         base.Start();
-        data = new Player();
+        this.data = new Player();
         this.ship = this.transform.GetComponentInChildren<ShipController>();
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");
+        this.ship.sprite_renderer.color = Color.red;
         this.ship.toMiddleOfScreen();
     }
 	
