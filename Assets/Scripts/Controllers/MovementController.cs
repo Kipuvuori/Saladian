@@ -4,7 +4,7 @@ using System.Collections;
 public class MovementController : ObjectController
 {
     private const int full_cirle = 360;
-    private Camera MainCamera;
+    protected Camera MainCamera;
 
     // Use this for initialization
     protected new void Start () {

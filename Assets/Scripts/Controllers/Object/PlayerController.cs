@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : ObjectController {
 
@@ -29,5 +30,17 @@ public class PlayerController : ObjectController {
     {
         new_position.z = 0;
         this.ship.move(new_position);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        Debug.Log(col.gameObject.name);
+        if (col.gameObject.name == "Obstacle")
+        {
+            Destroy(col.gameObject);
+            Destroy(this.gameObject);
+            Scene loadedLevel = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(loadedLevel.buildIndex);
+        }
     }
 }

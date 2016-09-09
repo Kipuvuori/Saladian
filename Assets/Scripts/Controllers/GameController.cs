@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameController : Controller
 {
+    public GameObject players_ship;
+    public GameObject obstacle;
+
     private GameElement main_camera;
     private GameElement background;
     private GameElement player;
@@ -71,14 +74,17 @@ public class GameController : Controller
 
     private void addPlayer()
     {
-        GameObject ship_game_object = new GameObject("Player's Ship");
+        /*GameObject ship_game_object = new GameObject("Player's Ship");
         SpriteRenderer ship_sprite = (SpriteRenderer)ship_game_object.AddComponent(typeof(SpriteRenderer));
         PolygonCollider2D collider = (PolygonCollider2D)ship_game_object.AddComponent(typeof(PolygonCollider2D));
-        ShipController ship_controller = (ShipController)ship_game_object.AddComponent(typeof(ShipController));
+        Rigidbody2D rigidbody = ship_game_object.AddComponent<Rigidbody2D>();
+        rigidbody.gravityScale = 0;
+        ShipController ship_controller = (ShipController)ship_game_object.AddComponent(typeof(ShipController));*/
         Dictionary<string, Component> ship_components = new Dictionary<string, Component>();
-        ship_components.Add(SPRITE, ship_sprite);
-        ship_components.Add(COLLIDER, collider);
-
+        //ship_components.Add(SPRITE, ship_sprite);
+        //ship_components.Add(COLLIDER, collider);
+        GameObject ship_game_object = Instantiate(this.players_ship);
+        ship_game_object.SetActive(true);
         GameObject player_game_object = new GameObject("Player");
         PlayerController player_controller = (PlayerController)player_game_object.AddComponent(typeof(PlayerController));
         Dictionary<string, Component> player_components = new Dictionary<string, Component>();
@@ -86,7 +92,7 @@ public class GameController : Controller
 
         ship_game_object.transform.parent = player_game_object.transform;
 
-        this.ships.Add(this.player, new GameElement(ship_game_object, ship_controller, ship_components));
+        //this.ships.Add(this.player, new GameElement(ship_game_object, ship_controller, ship_components));
     }
 
     private void addInputs()
@@ -107,12 +113,15 @@ public class GameController : Controller
 
     private void addObstacle()
     {
-        GameObject game_object = new GameObject("Obstacle");
+        GameObject game_object = Instantiate(this.obstacle);
         game_object.transform.parent = this.obstacle_mama.transform;
-        SpriteRenderer sprite = (SpriteRenderer)game_object.AddComponent(typeof(SpriteRenderer));
+        /*SpriteRenderer sprite = (SpriteRenderer)game_object.AddComponent(typeof(SpriteRenderer));
         ObstacleController controller = (ObstacleController)game_object.AddComponent(typeof(ObstacleController));
+        CircleCollider2D collider = game_object.AddComponent<CircleCollider2D>();*/
         Dictionary<string, Component> components = new Dictionary<string, Component>();
-        components.Add(SPRITE, sprite);
+        /*components.Add(SPRITE, sprite);
+        components.Add(COLLIDER, collider);*/
+        ObstacleController controller = gameObject.GetComponent<ObstacleController>();
         GameElement obstacle = new GameElement(game_object, controller, components);
         this.obstacles.Add(obstacle);
     }

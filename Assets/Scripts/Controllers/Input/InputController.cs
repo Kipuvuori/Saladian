@@ -49,6 +49,5 @@ public class InputController : Controller
         }
         PlayerController player = this.selected.GetComponentInParent<PlayerController>();
         if (player != null) player.positionChanged(position);
-        else Debug.Log("Player was null");
     }
 }
