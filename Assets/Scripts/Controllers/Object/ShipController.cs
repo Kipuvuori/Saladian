@@ -4,14 +4,20 @@ using UnityEngine.SceneManagement;
 public class ShipController : MovementController
 {
     public SpriteRenderer sprite_renderer;
-    private Ship data;
     private GameObject parent;
+    public ShipData data;
+
+    protected new void Awake()
+    {
+        base.Awake();
+        this.data = new ShipData();
+        this.name = ShipData.name;
+        //this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Ship");
+    }
 
     // Use this for initialization
-    protected new void Start () {
+    public new void Start () {
         base.Start();
-        this.data = new Ship();
-        //this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Ship");
         parent = this.transform.parent.gameObject;
     }
 
@@ -22,17 +28,23 @@ public class ShipController : MovementController
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log(col.gameObject.name);
-        if (col.gameObject.name == "Obstacle")
+        if (col.gameObject.name == ObstacleData.name)
         {
-            Destroy(col.gameObject);
-            Destroy(this.gameObject);
-            if(this.parent.name == "Player")
+            this.takeDamage();
+        }
+    }
+
+    void takeDamage(int amount = 1)
+    {
+        this.data.health -= amount;
+        Debug.Log(this.data.health);
+        if(this.data.health <= 0)
+        {
+            this.destroy();
+            if (this.parent.name == PlayerData.name)
             {
-                Scene loadedLevel = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(loadedLevel.buildIndex);
+                this.parent.GetComponent<PlayerController>().shipDestroyed();
             }
-            
         }
     }
 

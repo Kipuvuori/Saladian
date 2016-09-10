@@ -5,12 +5,21 @@ public class BackgroundController : UIController
     private Camera MainCamera;
     private SpriteRenderer sprite_renderer;
     private const int z = 100;
+    public BackgroundData data;
+    protected new void Awake()
+    {
+        base.Awake();
+        this.sprite_renderer = GetComponent<SpriteRenderer>();
+        this.MainCamera = GameController.Camera.GetComponent<Camera>();
+        this.data = new BackgroundData();
+        this.name = BackgroundData.name;
+        this.Init();
+    }
+
     // Use this for initialization
     protected new void Start () {
         base.Start();
-        this.sprite_renderer = GetComponent<SpriteRenderer>();
-        this.MainCamera = CameraController.MainCamera;
-        this.Init();
+        
 	}
 
     private void Init()

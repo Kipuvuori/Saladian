@@ -6,7 +6,12 @@ public class MouseController : InputController {
     public const int LEFT = 0;
     public const int RIGHT = 1;
     public const int MIDDLE = 2;
-    
+
+    protected new void Awake()
+    {
+        base.Awake();
+    }
+
     // Use this for initialization
     protected new void Start () {
         base.Start();

@@ -3,18 +3,19 @@
 public class ObstacleController : MovementController
 {
     private SpriteRenderer sprite_renderer;
-    private Obstacle data;
+    private ObstacleData data;
     private Rigidbody2D rigid_body;
 
-    // Use this for initialization
-    protected new void Start()
+    protected new void Awake()
     {
-        base.Start();
-        this.data = new Obstacle();
+        base.Awake();
+        this.transform.parent = GameController.ObstacleMama.transform;
+
+        this.data = new ObstacleData();
         Vector3 position = this.MainCamera.ViewportToWorldPoint(this.data.start_viewport);
         position.z = 0;
-        this.gameObject.name = Obstacle.name;
-        
+        this.name = ObstacleData.name;
+
 
         this.transform.position = position;
         this.sprite_renderer = GetComponent<SpriteRenderer>();
@@ -24,6 +25,13 @@ public class ObstacleController : MovementController
 
         this.rigid_body = this.GetComponent<Rigidbody2D>();
         this.rigid_body.AddForce(this.transform.right * this.data.speed);
+    }
+
+    // Use this for initialization
+    protected new void Start()
+    {
+        base.Start();
+       
     }
 
     // Update is called once per frame
@@ -46,7 +54,7 @@ public class ObstacleController : MovementController
         
         float x = position.x;
         float y = position.x;
-        if (x + Obstacle.OUTSIDE_BUFFER < 0 || x - Obstacle.OUTSIDE_BUFFER > 1 || y + Obstacle.OUTSIDE_BUFFER < 0 || y - Obstacle.OUTSIDE_BUFFER > 1) Destroy(this);
+        if (x + ObstacleData.OUTSIDE_BUFFER < 0 || x - ObstacleData.OUTSIDE_BUFFER > 1 || y + ObstacleData.OUTSIDE_BUFFER < 0 || y - ObstacleData.OUTSIDE_BUFFER > 1) Destroy(this);
     }
 
     public void OnBecameInvisible()
@@ -56,7 +64,16 @@ public class ObstacleController : MovementController
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log(col.gameObject.name);
+        this.takeDamage();
+    }
+
+    void takeDamage(int amount = 1)
+    {
+        this.data.health -= amount;
+        if (this.data.health <= 0)
+        {
+            this.destroy();
+        }
     }
 
 }
