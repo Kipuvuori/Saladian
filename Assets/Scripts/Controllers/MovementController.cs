@@ -4,12 +4,17 @@ using System.Collections;
 public class MovementController : ObjectController
 {
     private const int full_cirle = 360;
-    private Camera MainCamera;
+    public Camera MainCamera;
+
+    protected new void Awake()
+    {
+        base.Awake();
+        this.MainCamera = GameController.Camera.GetComponent<Camera>();
+    }
 
     // Use this for initialization
     protected new void Start () {
         base.Start();
-        this.MainCamera = CameraController.MainCamera;
     }
 	
 	// Update is called once per frame

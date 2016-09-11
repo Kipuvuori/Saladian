@@ -3,6 +3,11 @@ using System.Collections;
 
 public class GamepadController : InputController {
 
+    protected new void Awake()
+    {
+        base.Awake();
+    }
+
     // Use this for initialization
     protected new void Start () {
         base.Start();

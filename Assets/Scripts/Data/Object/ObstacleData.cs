@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Obstacle {
+public class ObstacleData {
     public Vector2 start_position;
     public int direction;
     public float speed;
-    public const float SPEED_MIN = 0.01f;
-    public const float SPEED_MAX = 0.5f;
+    public const float SPEED_MIN = 20;
+    public const float SPEED_MAX = 200;
     public const float DISTANCE = 0.1f;
     public float last_move_time = 0;
     public const float OUTSIDE_BUFFER = 0.2f;
-
+    public Vector3 rotation;
+    public int health = 1;
+    public const string name = "Obstacle";
     public Vector3 start_viewport;
 
-    public Obstacle()
+    public ObstacleData()
     {
         this.init();
     }
@@ -40,13 +42,13 @@ public class Obstacle {
             direction_min += 180;
             direction_max += 180;
         }
-
         this.direction = Random.Range(direction_min, direction_max);
+        this.rotation = new Vector3(0, 0, this.direction);
 
         float x = (axis == 1) ? (float)side : place;
         float y = (axis == 0) ? (float)side : place;
         this.start_viewport = new Vector3(x, y, 0f);
 
-        this.speed = Random.Range(Obstacle.SPEED_MIN, Obstacle.SPEED_MAX);
+        this.speed = Random.Range(ObstacleData.SPEED_MIN, ObstacleData.SPEED_MAX);
     }
 }

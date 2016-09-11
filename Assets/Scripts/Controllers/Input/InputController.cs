@@ -5,13 +5,21 @@ public class InputController : Controller
     private Camera MainCamera;
     private GameObject selected;
 
+    public InputData data;
+    protected new void Awake()
+    {
+        base.Awake();
+        this.data = new InputData();
+        this.name = InputData.name;
+        this.MainCamera = GameController.Camera.GetComponent<Camera>();
+        if (this.MainCamera == null) Debug.LogError("No MainCamera for the InputController!");
+        this.selected = null;
+    }
+
     // Use this for initialization
     protected new void Start()
     {
         base.Start();
-        this.MainCamera = CameraController.MainCamera;
-        if (this.MainCamera == null) Debug.LogError("No MainCamera for the InputController!");
-        this.selected = null;
     }
 
     // Update is called once per frame
@@ -49,6 +57,5 @@ public class InputController : Controller
         }
         PlayerController player = this.selected.GetComponentInParent<PlayerController>();
         if (player != null) player.positionChanged(position);
-        else Debug.Log("Player was null");
     }
 }

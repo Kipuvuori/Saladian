@@ -3,8 +3,12 @@ using System.Collections;
 
 public class Controller : MonoBehaviour {
 
-	// Use this for initialization
-	protected void Start () {
+    protected void Awake()
+    {
+    }
+
+    // Use this for initialization
+    protected void Start () {
 	
 	}
 	

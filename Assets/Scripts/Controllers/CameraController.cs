@@ -2,21 +2,20 @@
 
 public class CameraController : Controller
 {
-
-    private const string camera_name = "Main Camera";
-    private Camera main_camera;
-    public static Camera MainCamera
+    public Camera main_camera;
+    public CameraData data;
+    protected new void Awake()
     {
-        get
-        {
-            return GameObject.Find(camera_name).GetComponent<Camera>();
-        }
+        base.Awake();
+        this.data = new CameraData();
+        this.name = CameraData.name;
+        this.main_camera = this.GetComponent<Camera>();
+        this.init();
     }
+
     // Use this for initialization
     protected new void Start() {
         base.Start();
-        this.main_camera = MainCamera;
-        this.init();
     }
 	
 	// Update is called once per frame
