@@ -41,10 +41,15 @@ public class ShipController : MovementController
         if(this.data.health <= 0)
         {
             this.destroy();
-            if (this.parent.name == PlayerData.name)
-            {
-                this.parent.GetComponent<PlayerController>().shipDestroyed();
-            }
+           
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (this.parent.name == PlayerData.name)
+        {
+            this.parent.GetComponent<PlayerController>().shipDestroyed();
         }
     }
 

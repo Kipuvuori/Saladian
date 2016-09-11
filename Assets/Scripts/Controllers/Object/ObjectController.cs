@@ -2,9 +2,11 @@
 
 public class ObjectController : Controller
 {
+    protected Animator animator = null;
     protected new void Awake()
     {
         base.Awake();
+        this.animator = GetComponent<Animator>();
     }
 
     // Use this for initialization
@@ -25,7 +27,11 @@ public class ObjectController : Controller
 
     protected void destroy()
     {
-        // TODO: Play animation
-        Destroy(this.gameObject);
+        if (this.animator != null)
+        {
+            this.animator.Play("Explosion");
+            Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        }
+        else Destroy(this.gameObject);
     }
 }
