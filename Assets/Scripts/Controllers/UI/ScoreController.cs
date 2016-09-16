@@ -9,7 +9,10 @@ public class ScoreController : UIController {
 
     public Text list;
     public Text score;
+
     public GameObject game_over_panel;
+    public Text game_over_title;
+    public Text game_over_list;
     private UIButton restart_button;
     private UIButton quit_button;
     private UIButton send_button;
@@ -34,7 +37,7 @@ public class ScoreController : UIController {
         this.current_score = 0.0f;
         this.running = true;
         this.initializeGameOverPanel();
-        StartCoroutine("getData");
+        StartCoroutine(getData(ScoreController.LIMIT, this.updateScoreList));
     }
 	
 	// Update is called once per frame
@@ -59,7 +62,34 @@ public class ScoreController : UIController {
         this.restart_button = new UIButton(this.restart_go, "Restart", this.restart);
         this.quit_button = new UIButton(this.quit_go, "Quit", this.quit);
         this.send_button = new UIButton(this.send_go, "Send", this.saveScore);
+        this.game_over_title.text = "Game Over";
         this.setGameOverPanel(false);
+    }
+
+    private void setTopList(List<Score> scores)
+    {
+        string list = "";
+        this.game_over_list.text = list;
+        bool ownScoreAdded = false;
+        int no = 1;
+        for (int i = 0; i < scores.Count; ++i)
+        {
+            if (!ownScoreAdded && scores[i].score < this.currentScore())
+            {
+                list += no + ". " + this.currentScore() + ": YOU\n";
+                ownScoreAdded = true;
+                ++no;
+            }
+            list += no + ". " + scores[i].score + ": " + scores[i].name + "\n";
+            ++no;
+        }
+        if (!ownScoreAdded)
+        {
+            list += "XX. " + this.currentScore() + ": YOU\n";
+            ++no;
+        }
+        list = list.TrimEnd('\n');
+        this.game_over_list.text = list;
     }
 
     private void setGameOverPanel(bool status)
@@ -68,6 +98,7 @@ public class ScoreController : UIController {
         {
             this.game_over_panel.SetActive(status);
             this.scale_text = status;
+            StartCoroutine(getData(10, this.setTopList));
         }
         else Debug.LogError("Game over panel not set!");
     }
@@ -93,13 +124,14 @@ public class ScoreController : UIController {
     }
 
 
-    IEnumerator getData()
+    IEnumerator getData(int limit = -1, UnityAction<List<Score>> action = null)
     {
-        WWW www = new WWW(restUrl+ "/limit/" + LIMIT.ToString());   // UTF-8 encoded json file on the server
+        limit = (limit >= 0) ? limit : ScoreController.LIMIT;
+        WWW www = new WWW(restUrl+ "/limit/" + limit.ToString());   // UTF-8 encoded json file on the server
         yield return www;
         if (string.IsNullOrEmpty(www.error))
         {
-            this.updateScoreList(this.Processjson(www.text));
+            if(action != null) action.Invoke(this.Processjson(www.text));
         }
         else Debug.Log(www.error);
     }
@@ -108,9 +140,9 @@ public class ScoreController : UIController {
     {
         string list = "";
         this.list.text = list;
-        for (int i = 0; i < ScoreController.LIMIT && i < scores.Count; ++i)
+        for (int i = 0; i < scores.Count; ++i)
         {
-            list += i+1 + ". " + scores[i].score + ": " + scores[i].name + ", ";
+            list += i + 1 + ". " + scores[i].score + ": " + scores[i].name + ", ";
         }
         list = list.TrimEnd(' ');
         list = list.TrimEnd(',');
@@ -169,7 +201,6 @@ public class ScoreController : UIController {
             if (str.Length > 5)
             {
                 scores.Add(JsonUtility.FromJson<Score>(str));
-                if (scores.Count >= ScoreController.LIMIT) break;
             }
         }
         return scores;
