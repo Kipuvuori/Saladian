@@ -16,4 +16,9 @@ public class Controller : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public virtual void onResolutionChanged()
+    {
+
+    }
 }

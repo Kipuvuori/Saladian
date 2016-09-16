@@ -57,7 +57,6 @@ public class PlayerController : ObjectController {
 
     public void shipDestroyed()
     {
-        Scene loadedLevel = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(loadedLevel.buildIndex);
+        GameController.GameOver();
     }
 }

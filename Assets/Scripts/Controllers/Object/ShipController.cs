@@ -37,7 +37,6 @@ public class ShipController : MovementController
     void takeDamage(int amount = 1)
     {
         this.data.health -= amount;
-        Debug.Log(this.data.health);
         if(this.data.health <= 0)
         {
             this.destroy();

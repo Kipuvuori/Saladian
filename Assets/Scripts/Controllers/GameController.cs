@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -16,17 +17,23 @@ public class GameController : Controller
     private List<GameObject> obstacles;
     public static GameObject ObstacleMama;
 
+    private ScoreController score_controller;
+    private CameraController camera_controller;
+
     public const string CAMERA = "camera";
     public const string SPRITE = "sprite";
     public const string COLLIDER = "collider";
 
     public float last_obstacle = 0;
 
+    CameraResolution resolution;
+
     protected new void Awake()
     {
         base.Awake();
         this.obstacles = new List<GameObject>();
         GameController.ObstacleMama = new GameObject("Obstacles");
+        this.score_controller = this.transform.GetComponent<ScoreController>();
         this.addElements();
         this.addInputs();
     }
@@ -35,7 +42,7 @@ public class GameController : Controller
     protected new void Start()
     {
         base.Start();
-       
+        this.resolution = this.camera_controller.resolution;
     }
 	
 	// Update is called once per frame
@@ -46,6 +53,13 @@ public class GameController : Controller
             this.addObstacle();
             this.last_obstacle = 0;
         }
+
+        if (!this.resolution.Equals(this.camera_controller.resolution))
+        {
+            this.onResolutionChanged();
+            this.resolution = this.camera_controller.resolution;
+        }
+
 
     }
 
@@ -60,6 +74,7 @@ public class GameController : Controller
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Camera", typeof(GameObject));
         GameController.Camera = Instantiate(prefab);
+        this.camera_controller = GameController.Camera.GetComponent<CameraController>();
     }
 
     private void addBackground()
@@ -84,5 +99,40 @@ public class GameController : Controller
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Obstacle", typeof(GameObject));
         this.obstacles.Add(Instantiate(prefab));
+    }
+
+    public static bool GameOver()
+    {
+        GameObject game = GameObject.Find("Game");
+        if (game == null) return false;
+        GameController game_controller = game.GetComponent<GameController>();
+        if (game_controller == null) return false;
+        game_controller.gameOver();
+        return true;
+    }
+
+    public void gameOver()
+    {
+        this.onGameOver();
+    }
+
+    private void onGameOver()
+    {
+        this.score_controller.gameOver();
+    }
+
+    public static void Restart()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public static void Quit()
+    {
+        Application.Quit();
+    }
+
+    public override void onResolutionChanged()
+    {
+        this.score_controller.onResolutionChanged();
     }
 }
