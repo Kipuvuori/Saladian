@@ -121,6 +121,7 @@ public class ScoreController : UIController {
     {
         int score = this.currentScore();
         string name = this.username.text;
+        this.send_button.Interactable = false;
         this.saveScore(score, name);
     }
 
@@ -141,7 +142,11 @@ public class ScoreController : UIController {
             Debug.Log("sendData - OK");
             this.send_button.Interactable = false;
         }
-        else Debug.Log(www.error);
+        else
+        {
+            Debug.Log(www.error);
+            this.send_button.Interactable = true;
+        }
     }
 
     void sendScore()
