@@ -5,22 +5,69 @@ public class MovementController : ObjectController
 {
     private const int full_cirle = 360;
     public Camera MainCamera;
+    public bool keep_inside_camera;
+    private SpriteRenderer sprite;
+    private float diff_x;
+    private float diff_y;
+    private CameraController camera_controller;
 
     protected new void Awake()
     {
         base.Awake();
+        this.keep_inside_camera = false;
         this.MainCamera = GameController.Camera.GetComponent<Camera>();
+        this.camera_controller = GameController.Camera.GetComponent<CameraController>();
     }
 
     // Use this for initialization
     protected new void Start () {
         base.Start();
+        this.sprite = this.GetComponent<SpriteRenderer>();
+        if(this.sprite != null)
+        {
+            this.diff_x = this.sprite.bounds.size.x / 2;
+            this.diff_y = this.sprite.bounds.size.y / 2;
+        }
+        
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
+	protected new void Update () {
+        base.Update();
+        this.keepInsideCamera();
+    }
+
+    void keepInsideCamera()
+    {
+        if (this.sprite != null && this.keep_inside_camera && this.camera_controller != null)
+        {
+            this.transform.position = this.getConfinedPosition(this.transform.position);
+        }
+       
+    }
+
+    Vector3 getConfinedPosition(Vector3 position)
+    {
+        if(this.MainCamera != null)
+        {
+            Vector3 pos = this.MainCamera.WorldToViewportPoint(position);
+            if (this.sprite != null)
+            {
+                float sprite_x = this.diff_x / this.MainCamera.orthographicSize;
+                float sprite_y = this.diff_y / this.MainCamera.orthographicSize;
+                pos.x = Mathf.Clamp(pos.x, sprite_x, 1 - sprite_x);
+                pos.y = Mathf.Clamp(pos.y, sprite_y, 1 - sprite_y);
+
+            }
+            else
+            {
+                pos.x = Mathf.Clamp01(pos.x);
+                pos.y = Mathf.Clamp01(pos.y);
+            }
+            position = this.MainCamera.ViewportToWorldPoint(pos);
+        }
+        return position;
+    }
 
     public Vector3 currentPosition()
     {
@@ -54,12 +101,9 @@ public class MovementController : ObjectController
     {
         if(confine_to_camera)
         {
-            Vector3 pos = this.MainCamera.WorldToViewportPoint(position);
-            pos.x = Mathf.Clamp01(pos.x);
-            pos.y = Mathf.Clamp01(pos.y);
-            position = this.MainCamera.ViewportToWorldPoint(pos);
+            position = this.getConfinedPosition(position);
         }
-        transform.position = position;
+        this.transform.position = position;
         return position;
     }
 

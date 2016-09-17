@@ -22,8 +22,9 @@ public class ShipController : MovementController
     }
 
     // Update is called once per frame
-    void Update () {
-        
+    protected new void Update()
+    {
+        base.Update();
     }
 
     void OnCollisionEnter2D(Collision2D col)

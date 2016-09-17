@@ -39,9 +39,11 @@ public class ScoreController : UIController {
         this.initializeGameOverPanel();
         StartCoroutine(getData(ScoreController.LIMIT, this.updateScoreList));
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
         if (this.running) this.updateScore();
         if (this.scale_text)
         {

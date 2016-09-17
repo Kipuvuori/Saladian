@@ -29,11 +29,13 @@ public class BackgroundController : UIController
         this.Resize();
         this.Reposition();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
         //Reposition();
-	}
+    }
 
     /*
      * Function Resize

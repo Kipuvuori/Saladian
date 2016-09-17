@@ -35,8 +35,9 @@ public class ObstacleController : MovementController
     }
 
     // Update is called once per frame
-    void Update()
+    protected new void Update()
     {
+        base.Update();
         this.data.last_move_time += Time.deltaTime;
         if(this.data.last_move_time >= this.data.speed)
         {
@@ -50,11 +51,11 @@ public class ObstacleController : MovementController
 
     void isOutside()
     {
-        Vector3 position = this.MainCamera.WorldToViewportPoint(this.transform.position);
+        /*Vector3 position = this.MainCamera.WorldToViewportPoint(this.transform.position);
         
         float x = position.x;
         float y = position.x;
-        if (x + ObstacleData.OUTSIDE_BUFFER < 0 || x - ObstacleData.OUTSIDE_BUFFER > 1 || y + ObstacleData.OUTSIDE_BUFFER < 0 || y - ObstacleData.OUTSIDE_BUFFER > 1) Destroy(this);
+        if (x + ObstacleData.OUTSIDE_BUFFER < 0 || x - ObstacleData.OUTSIDE_BUFFER > 1 || y + ObstacleData.OUTSIDE_BUFFER < 0 || y - ObstacleData.OUTSIDE_BUFFER > 1) Destroy(this);*/
     }
 
     public void OnBecameInvisible()

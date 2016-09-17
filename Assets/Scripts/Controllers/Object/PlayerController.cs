@@ -16,9 +16,15 @@ public class PlayerController : ObjectController {
         ship_game_object.transform.parent = this.transform;
         this.ship = ship_game_object.GetComponent<ShipController>();
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");
-        this.ship.sprite_renderer.color = Color.red;
-        this.ship.toMiddleOfScreen();
-        this.ship.data.health = 4; // Players ship can take 4 hits
+        else
+        {
+            this.ship.sprite_renderer.color = Color.red;
+            this.ship.toMiddleOfScreen();
+            this.ship.data.health = 4; // Players ship can take 4 hits
+            this.ship.keep_inside_camera = true;
+            this.ship.GetComponent<Rigidbody2D>().isKinematic = true;
+        }
+        
     }
 
     // Use this for initialization
@@ -26,8 +32,10 @@ public class PlayerController : ObjectController {
         base.Start();
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
         //test_movement();
     }
 

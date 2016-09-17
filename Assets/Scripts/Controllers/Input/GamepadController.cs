@@ -12,9 +12,11 @@ public class GamepadController : InputController {
     protected new void Start () {
         base.Start();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
+
+    }
 }

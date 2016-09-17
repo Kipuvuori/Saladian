@@ -12,10 +12,10 @@ public class TouchController : InputController {
     protected new void Start () {
         base.Start();
     }
-	
-    void Update()
+
+    protected new void Update()
     {
-        
+        base.Update();
         if (Input.touchCount > 0)
         {
             this.touchDown();
