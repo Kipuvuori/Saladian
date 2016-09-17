@@ -40,4 +40,9 @@ public static class Tools {
         else Debug.LogError("No text set!");
         return false;
     }
+
+    static public bool BoundsIsEncapsulated(Bounds Encapsulator, Bounds Encapsulating)
+    {
+        return Encapsulator.Contains(Encapsulating.min) && Encapsulator.Contains(Encapsulating.max);
+    }
 }

@@ -16,9 +16,11 @@ public class MouseController : InputController {
     protected new void Start () {
         base.Start();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
         if (Input.GetMouseButton(LEFT)) this.leftButtonDown();
         else this.leftButtonUp();
         if (Input.GetMouseButton(RIGHT)) this.rightButtonDown();

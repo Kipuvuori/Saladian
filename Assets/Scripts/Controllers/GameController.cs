@@ -44,9 +44,11 @@ public class GameController : Controller
         base.Start();
         this.resolution = this.camera_controller.resolution;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
         this.last_obstacle += Time.deltaTime;
         if(this.last_obstacle >= 1)
         {

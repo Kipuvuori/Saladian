@@ -11,9 +11,11 @@ public class KeyboardController : InputController {
     // Use this for initialization
     protected new void Start () {
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    protected new void Update()
+    {
+        base.Update();
+
+    }
 }
