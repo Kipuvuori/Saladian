@@ -44,7 +44,6 @@ public class InputController : Controller
 
     public void releaseGameObject()
     {
-        if (this.selected != null) Debug.Log("Released mouse");
         this.selected = null;
     }
 

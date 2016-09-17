@@ -4,6 +4,9 @@ public class CameraController : Controller
 {
     public Camera main_camera;
     public CameraData data;
+
+    public CameraResolution resolution;
+
     protected new void Awake()
     {
         base.Awake();
@@ -20,8 +23,8 @@ public class CameraController : Controller
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        this.update_camera_size();
+    }
 
     private void init()
     {
@@ -30,5 +33,11 @@ public class CameraController : Controller
         this.main_camera.orthographic = true;
         this.main_camera.depth = -1;
         this.main_camera.orthographicSize = 5;
+        this.update_camera_size();
+    }
+
+    public void update_camera_size()
+    {
+        this.resolution = new CameraResolution(this.main_camera);
     }
 }
