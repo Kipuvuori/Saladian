@@ -130,7 +130,7 @@ public class GameController : Controller
 
     public static void Quit()
     {
-        Application.Quit();
+		SceneManager.LoadScene("Menu");
     }
 
     public override void onResolutionChanged()
