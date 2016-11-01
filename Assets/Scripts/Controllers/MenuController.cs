@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MenuController : Controller {
+public class MenuController : SceneController {
 	
 	public Image background_image;
 	public GameObject start_game_go;
@@ -14,10 +14,12 @@ public class MenuController : Controller {
 
 	protected new void Awake(){
 		base.Awake();
-	}
+        this.addMainCamera();
+        this.addInputs();
+    }
 
-	// Use this for initialization
-	protected new void Start () {
+    // Use this for initialization
+    protected new void Start () {
 		base.Start ();
 		Sprite sprite = Resources.Load<Sprite>("Sprites/explosion");
 		//this.background_image.sprite = sprite;
@@ -35,9 +37,15 @@ public class MenuController : Controller {
 		SceneManager.LoadScene ("Main");
 	}
 		
-	public static void Quit()
+	public new static void Quit()
 	{
 		Application.Quit();
 		Debug.Log ("quit");
 	}
+    private void addMainCamera()
+    {
+        GameObject prefab = (GameObject)Resources.Load("Prefabs/MenuCamera", typeof(GameObject));
+        GameController.Camera = Instantiate(prefab);
+    }
+
 }

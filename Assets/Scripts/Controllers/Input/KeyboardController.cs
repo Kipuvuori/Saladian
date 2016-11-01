@@ -16,6 +16,6 @@ public class KeyboardController : InputController {
     protected new void Update()
     {
         base.Update();
-
+        if (Input.GetKeyDown(KeyCode.Escape)) { this.quit(); }
     }
 }

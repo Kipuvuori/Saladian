@@ -26,6 +26,7 @@ public class CameraController : Controller
     {
         base.Update();
         this.update_camera_size();
+
     }
 
     private void init()

@@ -11,7 +11,7 @@ public class InputController : Controller
         base.Awake();
         this.data = new InputData();
         this.name = InputData.name;
-        this.MainCamera = GameController.Camera.GetComponent<Camera>();
+        this.MainCamera = SceneController.Camera.GetComponent<Camera>();
         if (this.MainCamera == null) Debug.LogError("No MainCamera for the InputController!");
         this.selected = null;
     }
@@ -57,5 +57,15 @@ public class InputController : Controller
         }
         PlayerController player = this.selected.GetComponentInParent<PlayerController>();
         if (player != null) player.positionChanged(position);
+    }
+
+    protected void quit()
+    {
+        SceneController.Quit();
+    }
+
+    private void restart()
+    {
+        SceneController.Restart();
     }
 }
