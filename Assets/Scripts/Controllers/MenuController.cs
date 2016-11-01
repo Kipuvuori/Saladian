@@ -20,10 +20,10 @@ public class MenuController : Controller {
 	protected new void Start () {
 		base.Start ();
 		Sprite sprite = Resources.Load<Sprite>("Sprites/explosion");
-		this.background_image.sprite = sprite;
-		this.background_image.color = Color.red;
-		this.start_game_button = new UIButton(this.start_game_go,"Start",this.start_game);
-		this.quit_game_button = new UIButton(this.quit_game_go,"Quit",MenuController.Quit);
+		//this.background_image.sprite = sprite;
+		//this.background_image.color = Color.red;
+		this.start_game_button = new UIButton(this.start_game_go,"StartButton", this.start_game);
+		this.quit_game_button = new UIButton(this.quit_game_go, "QuitButton", MenuController.Quit);
 	}
 	
 	// Update is called once per frame
