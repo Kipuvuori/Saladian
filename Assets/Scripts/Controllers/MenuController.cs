@@ -22,8 +22,8 @@ public class MenuController : Controller {
 		Sprite sprite = Resources.Load<Sprite>("Sprites/explosion");
 		//this.background_image.sprite = sprite;
 		//this.background_image.color = Color.red;
-		this.start_game_button = new UIButton(this.start_game_go,"StartButton", this.start_game);
-		this.quit_game_button = new UIButton(this.quit_game_go, "QuitButton", MenuController.Quit);
+		this.start_game_button = new UIButton(this.start_game_go,"Start game", this.start_game);
+		this.quit_game_button = new UIButton(this.quit_game_go, "Quit game", MenuController.Quit);
 	}
 	
 	// Update is called once per frame
