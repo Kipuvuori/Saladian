@@ -5,12 +5,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class GameController : Controller
+public class GameController : SceneController
 {
     public GameObject players_ship;
     public GameObject obstacle;
 
-    public static GameObject Camera;
     private GameObject background;
     private GameObject player;
     private GameObject input;
@@ -123,14 +122,14 @@ public class GameController : Controller
         this.score_controller.gameOver();
     }
 
-    public static void Restart()
+    public new static void Restart()
     {
         SceneManager.LoadScene("Main");
     }
 
-    public static void Quit()
+    public new static void Quit()
     {
-        Application.Quit();
+		SceneManager.LoadScene("Menu");
     }
 
     public override void onResolutionChanged()

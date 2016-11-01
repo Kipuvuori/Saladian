@@ -62,8 +62,8 @@ public class ScoreController : UIController {
     private void initializeGameOverPanel()
     {
         this.restart_button = new UIButton(this.restart_go, "Restart", this.restart);
-        this.quit_button = new UIButton(this.quit_go, "Quit", this.quit);
-        this.send_button = new UIButton(this.send_go, "Send", this.saveScore);
+        this.quit_button = new UIButton(this.quit_go, "Quit to menu", this.quit);
+        this.send_button = new UIButton(this.send_go, "Submit score", this.saveScore);
         this.game_over_title.text = "Game Over";
         this.setGameOverPanel(false);
     }
