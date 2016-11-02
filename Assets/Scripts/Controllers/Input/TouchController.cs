@@ -26,7 +26,7 @@ public class TouchController : InputController {
     void touchDown()
     {
         Vector3 position = Input.GetTouch(0).position;
-        this.overGameObject(position);
+        this.overGameObject(position, this.tellPosition);
     }
     void touchUp()
     {

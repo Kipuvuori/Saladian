@@ -67,4 +67,9 @@ public class PlayerController : ObjectController {
     {
         GameController.GameOver();
     }
+
+    public void shoot()
+    {
+        this.ship.shoot();
+    }
 }

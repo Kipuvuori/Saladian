@@ -6,6 +6,7 @@ public class MouseController : InputController {
     public const int LEFT = 0;
     public const int RIGHT = 1;
     public const int MIDDLE = 2;
+    public bool shooting = false;
 
     protected new void Awake()
     {
@@ -31,7 +32,7 @@ public class MouseController : InputController {
 
     void leftButtonDown()
     {
-        this.overGameObject(Input.mousePosition);
+        this.overGameObject(Input.mousePosition, this.tellPosition);
     }
     void leftButtonUp()
     {
@@ -39,10 +40,15 @@ public class MouseController : InputController {
     }
     void rightButtonDown()
     {
+        if (!shooting)
+        {
+            this.overGameObject(Input.mousePosition, this.shoot);
+            shooting = true;
+        }
     }
     void rightButtonUp()
     {
-
+        shooting = false;
     }
     void middleButtonDown()
     {

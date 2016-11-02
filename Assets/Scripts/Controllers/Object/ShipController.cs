@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ShipController : MovementController
@@ -51,6 +52,15 @@ public class ShipController : MovementController
         {
             this.parent.GetComponent<PlayerController>().shipDestroyed();
         }
+    }
+
+    public void shoot()
+    {
+        GameObject prefab = (GameObject)Resources.Load("Prefabs/Shot", typeof(GameObject));
+        GameObject shot = Instantiate(prefab);
+        ShotController controller = shot.GetComponent<ShotController>();
+        Vector2 location = new Vector2(this.transform.position.x, this.transform.position.y + 1);
+        controller.shoot(location);        
     }
 
 
