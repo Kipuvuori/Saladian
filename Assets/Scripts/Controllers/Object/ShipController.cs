@@ -7,6 +7,7 @@ public class ShipController : MovementController
     public SpriteRenderer sprite_renderer;
     private GameObject parent;
     public ShipData data;
+    public AudioSource die_sound;
 
     protected new void Awake()
     {
@@ -41,6 +42,7 @@ public class ShipController : MovementController
         this.data.health -= amount;
         if(this.data.health <= 0)
         {
+            if (this.die_sound != null) this.die_sound.Play();
             this.destroy();
            
         }
