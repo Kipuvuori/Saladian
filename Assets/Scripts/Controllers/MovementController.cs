@@ -28,7 +28,6 @@ public class MovementController : ObjectController
             this.diff_x = this.sprite.bounds.size.x / 2;
             this.diff_y = this.sprite.bounds.size.y / 2;
         }
-        
     }
 	
 	// Update is called once per frame
