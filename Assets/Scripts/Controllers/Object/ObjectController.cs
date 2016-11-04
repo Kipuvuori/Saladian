@@ -29,7 +29,7 @@ public class ObjectController : Controller
 
     protected void destroy()
     {
-        if (this.animator != null)
+        if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("Explosion")))
         {
             this.animator.Play("Explosion");
             Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);

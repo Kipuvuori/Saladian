@@ -12,7 +12,6 @@ public class GameController : SceneController
 
     private GameObject background;
     private GameObject player;
-    private GameObject input;
     private List<GameObject> obstacles;
     public static GameObject ObstacleMama;
 
@@ -60,8 +59,6 @@ public class GameController : SceneController
             this.onResolutionChanged();
             this.resolution = this.camera_controller.resolution;
         }
-
-
     }
 
     private void addElements()
@@ -88,12 +85,6 @@ public class GameController : SceneController
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Player", typeof(GameObject));
         this.player = Instantiate(prefab);
-    }
-
-    private void addInputs()
-    {
-        GameObject prefab = (GameObject)Resources.Load("Prefabs/Input", typeof(GameObject));
-        this.input = Instantiate(prefab);
     }
 
     private void addObstacle()

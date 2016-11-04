@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class InputController : Controller
 {
@@ -29,17 +30,16 @@ public class InputController : Controller
 
     }
 
-    public GameObject overGameObject(Vector3 screen_point)
+    public GameObject overGameObject(Vector3 screen_point, UnityAction<Vector2> action = null)
     {
         Vector2 position = this.MainCamera.ScreenToWorldPoint(screen_point);
         RaycastHit2D hitInfo = Physics2D.Raycast(position, Vector2.zero);
-        if (hitInfo.collider != null)
+        if (hitInfo.collider != null) this.selected = hitInfo.transform.gameObject;
+        if (selected != null)
         {
-            this.selected = hitInfo.transform.gameObject;
-            this.tellPosition(position);
+            if (action != null) action(position);
             return this.selected;
         }
-        else if (selected != null) this.tellPosition(position);
         return null;
     }
 
@@ -48,15 +48,33 @@ public class InputController : Controller
         this.selected = null;
     }
 
-    private void tellPosition(Vector2 position)
+    protected void tellPosition(Vector2 position)
+    {
+        PlayerController player = this.getPlayer();
+        if (player != null) player.positionChanged(position);
+    }
+
+    protected void shoot(Vector2 position)
+    {
+        PlayerController player = this.getPlayer();
+        if (player != null) player.shoot();
+    }
+
+
+    private PlayerController getPlayer()
     {
         if (this.selected == null)
         {
-            Debug.LogError("Trying to tell movement to null game object");
-            return;
+            Debug.LogError("Trying to get player from null selection");
+            return null;
         }
         PlayerController player = this.selected.GetComponentInParent<PlayerController>();
-        if (player != null) player.positionChanged(position);
+        return player;
+    }
+
+    protected void shoot()
+    {
+
     }
 
     protected void quit()

@@ -28,7 +28,6 @@ public class MovementController : ObjectController
             this.diff_x = this.sprite.bounds.size.x / 2;
             this.diff_y = this.sprite.bounds.size.y / 2;
         }
-        
     }
 	
 	// Update is called once per frame
@@ -53,8 +52,11 @@ public class MovementController : ObjectController
             Vector3 pos = this.MainCamera.WorldToViewportPoint(position);
             if (this.sprite != null)
             {
-                float sprite_x = this.diff_x / this.MainCamera.orthographicSize;
-                float sprite_y = this.diff_y / this.MainCamera.orthographicSize;
+                float horizontal_extend = (this.MainCamera.orthographicSize * Screen.width / Screen.height) * 2;
+                float vertical_extend = this.MainCamera.orthographicSize * 2;
+
+                float sprite_x = this.diff_x / horizontal_extend;
+                float sprite_y = this.diff_y / vertical_extend;
                 pos.x = Mathf.Clamp(pos.x, sprite_x, 1 - sprite_x);
                 pos.y = Mathf.Clamp(pos.y, sprite_y, 1 - sprite_y);
 

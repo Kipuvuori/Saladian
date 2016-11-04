@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ShipController : MovementController
@@ -6,6 +7,7 @@ public class ShipController : MovementController
     public SpriteRenderer sprite_renderer;
     private GameObject parent;
     public ShipData data;
+    public AudioSource die_sound;
 
     protected new void Awake()
     {
@@ -40,6 +42,7 @@ public class ShipController : MovementController
         this.data.health -= amount;
         if(this.data.health <= 0)
         {
+            if (this.die_sound != null) this.die_sound.Play();
             this.destroy();
            
         }
@@ -53,6 +56,16 @@ public class ShipController : MovementController
         }
     }
 
-
+    public void shoot()
+    {
+        GameObject prefab = (GameObject)Resources.Load("Prefabs/Shot", typeof(GameObject));
+        GameObject shot = Instantiate(prefab);
+        shot.transform.parent = this.gameObject.transform;
+        ShotController controller = shot.GetComponent<ShotController>();
+        Vector2 location = new Vector2(this.transform.position.x, this.transform.position.y + 1);
+        controller.shoot(location);
+        if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("shot_fx")))
+            this.animator.Play("shot_fx");
+    }
 
 }
