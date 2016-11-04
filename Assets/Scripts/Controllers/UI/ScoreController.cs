@@ -22,9 +22,7 @@ public class ScoreController : UIController {
     public GameObject send_go;
     public InputField username;
 
-    private const string restUrl = "http://vanillasky.ddns.me:5555";
     public float current_score;
-    private const int LIMIT = 3;
     private bool running;
     private UnityAction restart_action;
     private UnityAction quit_action;
@@ -39,7 +37,7 @@ public class ScoreController : UIController {
         this.current_score = 0.0f;
         this.running = true;
         this.initializeGameOverPanel();
-        StartCoroutine(getData(ScoreController.LIMIT, this.updateScoreList));
+        StartCoroutine(REST.getScores(REST.LIMIT, this.updateScoreList));
     }
 
     // Update is called once per frame
@@ -112,7 +110,7 @@ public class ScoreController : UIController {
         {
             this.game_over_panel.SetActive(status);
             this.scale_text = status;
-            StartCoroutine(getData(10, this.setTopList));
+            StartCoroutine(REST.getScores(10, this.setTopList));
         }
         else Debug.LogError("Game over panel not set!");
     }
@@ -138,17 +136,7 @@ public class ScoreController : UIController {
     }
 
 
-    IEnumerator getData(int limit = -1, UnityAction<List<Score>> action = null)
-    {
-        limit = (limit >= 0) ? limit : ScoreController.LIMIT;
-        WWW www = new WWW(restUrl+ "/limit/" + limit.ToString());   // UTF-8 encoded json file on the server
-        yield return www;
-        if (string.IsNullOrEmpty(www.error))
-        {
-            if(action != null) action.Invoke(this.Processjson(www.text));
-        }
-        else Debug.Log(www.error);
-    }
+   
 
     private void updateScoreList(List<Score> scores)
     {
@@ -173,51 +161,19 @@ public class ScoreController : UIController {
 
     void saveScore(int score, string name)
     {
-        StartCoroutine(this.sendScore(score, name));
-    }
-
-    IEnumerator sendScore(int score, string name)
-    {
-        string url = restUrl + "/create?name=" + WWW.EscapeURL(name) +
-            "&score=" + WWW.EscapeURL(score.ToString()) + "";
-        Debug.Log(url);
-        WWW www = new WWW(url);
-        yield return www;
-        if (string.IsNullOrEmpty(www.error))
-        {
-            Debug.Log("sendData - OK");
-            this.send_button.Interactable = false;
-        }
-        else
-        {
-            Debug.Log(www.error);
-            this.send_button.Interactable = true;
-        }
+        StartCoroutine(REST.sendScore(score, name, this.handleSend));
     }
 
     void sendScore()
     {
         string name = "Santeri Hetekivi";
         int score = this.currentScore();
-        this.sendScore(score, name);
+        REST.sendScore(score, name, this.handleSend);
     }
 
-    private List<Score> Processjson(string jsonString)
+    void handleSend(bool success)
     {
-        jsonString =jsonString.TrimStart('[');
-        jsonString = jsonString.TrimEnd(']');
-        string[] jsons = jsonString.Split('}');
-        List<Score> scores = new List<Score>();
-        string str = "";
-        foreach (string json in jsons)
-        {
-            str = json.TrimStart(',') + "}";
-            if (str.Length > 5)
-            {
-                scores.Add(JsonUtility.FromJson<Score>(str));
-            }
-        }
-        return scores;
+        this.send_button.Interactable = !success;
     }
 
     public void gameOver()
