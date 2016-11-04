@@ -16,7 +16,6 @@ public class GameController : SceneController
     public static GameObject ObstacleMama;
 
     private ScoreController score_controller;
-    private CameraController camera_controller;
 
     public const string CAMERA = "camera";
     public const string SPRITE = "sprite";
@@ -24,7 +23,6 @@ public class GameController : SceneController
 
     public float last_obstacle = 0;
 
-    CameraResolution resolution;
 
     protected new void Awake()
     {

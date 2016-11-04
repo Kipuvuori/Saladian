@@ -29,7 +29,9 @@ public class MenuController : SceneController {
 		//this.background_image.color = Color.red;
 		this.start_game_button = new UIButton(this.start_game_go,"Start game", this.start_game);
 		this.quit_game_button = new UIButton(this.quit_game_go, "Quit game", MenuController.Quit);
-        this.leaderboard_button = new UIButton(this.leaderboard_go, "Leaderboard", this.open_leaderboard);
+        string crown = '\u2654'.ToString();
+        string leaderboard_text = crown + " Leaderboard " + crown;
+        this.leaderboard_button = new UIButton(this.leaderboard_go, leaderboard_text, this.open_leaderboard);
     }
 
     // Update is called once per frame

@@ -8,6 +8,8 @@ public class SceneController : Controller
 {
     private GameObject input;
     public static GameObject Camera;
+    protected CameraController camera_controller;
+    protected CameraResolution resolution;
 
     protected new void Awake()
     {

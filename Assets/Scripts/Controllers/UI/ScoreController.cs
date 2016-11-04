@@ -28,7 +28,7 @@ public class ScoreController : UIController {
     private UnityAction quit_action;
     private bool scale_text = false;
 
-    const int MAX_NAME_LENGTH = 20;
+    public const int MAX_NAME_LENGTH = 20;
 
 
     // Use this for initialization
@@ -82,7 +82,7 @@ public class ScoreController : UIController {
                 ownScoreAdded = true;
                 ++no;
             }
-            list += no + ". " + scores[i].score + ": " + this.formatName(scores[i].name) + "\n";
+            list += no + ". " + scores[i].score + ": " + Tools.FormatName(scores[i].name, ScoreController.MAX_NAME_LENGTH) + "\n";
             ++no;
         }
         if (!ownScoreAdded)
@@ -94,15 +94,7 @@ public class ScoreController : UIController {
         this.game_over_list.text = list;
     }
 
-    private string formatName(string name)
-    {
-        int lenght = name.Length;
-        if(lenght > ScoreController.MAX_NAME_LENGTH)
-        {
-            name = name.Substring(0, ScoreController.MAX_NAME_LENGTH - 3) + "...";
-        }
-        return name;
-    }
+
 
     private void setGameOverPanel(bool status)
     {
@@ -144,7 +136,7 @@ public class ScoreController : UIController {
         this.list.text = list;
         for (int i = 0; i < scores.Count; ++i)
         {
-            list += i + 1 + ". " + scores[i].score + ": " + this.formatName(scores[i].name) + ", ";
+            list += i + 1 + ". " + scores[i].score + ": " + Tools.FormatName(scores[i].name, ScoreController.MAX_NAME_LENGTH) + ", ";
         }
         list = list.TrimEnd(' ');
         list = list.TrimEnd(',');
