@@ -65,6 +65,8 @@ public class GridController : UIController {
         Vector2 newSize = new Vector2(width / columns, height / rows);
         this.gameObject.GetComponent<GridLayoutGroup>().cellSize = newSize;
         text_resize_needed = true;
+        //this.resizeSprites();
+        this.resizeImages();
         return true;
     }
 
@@ -88,6 +90,42 @@ public class GridController : UIController {
             }
         }
         else text_resize_needed = false;
+    }
+
+    public void resizeSprites()
+    {
+        SpriteRenderer[] sprites = this.transform.GetComponentsInChildren<SpriteRenderer>();
+        if (sprites.Length > 0)
+        {
+            float x = this.gameObject.GetComponent<GridLayoutGroup>().cellSize.x;
+            float y = this.gameObject.GetComponent<GridLayoutGroup>().cellSize.y;
+            foreach (SpriteRenderer sprite_renderer in sprites)
+            {
+                float width = sprite_renderer.sprite.bounds.size.x;
+                float height = sprite_renderer.sprite.bounds.size.y;
+
+                Vector2 scale = new Vector2( x / width, y / height);
+                sprite_renderer.transform.localScale = scale;
+
+            }
+
+        }
+    }
+
+    public void resizeImages()
+    {
+        Image[] images = this.transform.GetComponentsInChildren<Image>();
+        if (images.Length > 0)
+        {
+            Vector3 scale = new Vector3(1f, 1f, 1f);
+
+            foreach (Image image in images)
+            {
+                image.transform.localScale = scale;
+
+            }
+
+        }
     }
 
     public override void onResolutionChanged()
