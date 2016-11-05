@@ -40,7 +40,12 @@ public class ShipController : MovementController
     void takeDamage(int amount = 1)
     {
         this.data.health -= amount;
-        if(this.data.health <= 0)
+        if (this.parent.name == PlayerData.name)
+        {
+            this.parent.GetComponent<PlayerController>().shipTookDamage(amount);
+        }
+
+        if (this.data.health <= 0)
         {
             if (this.die_sound != null) this.die_sound.Play();
             this.destroy();
