@@ -47,16 +47,14 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    serializedVersion: 2
     sprites:
-    - serializedVersion: 2
-      name: shot_glow_animation_0
+    - name: shot_glow_animation_0
       rect:
         serializedVersion: 2
         x: 0
@@ -66,10 +64,15 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -4, y: 7}
+        - {x: -4, y: -6}
+        - {x: 1, y: -6}
+        - {x: 3, y: -4}
+        - {x: 3, y: 5}
+        - {x: 1, y: 7}
       tessellationDetail: 0
-    - serializedVersion: 2
-      name: shot_glow_animation_1
+    - name: shot_glow_animation_1
       rect:
         serializedVersion: 2
         x: 32
@@ -79,10 +82,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -5, y: 8}
+        - {x: -9, y: 2}
+        - {x: -9, y: -4}
+        - {x: -1, y: -7}
+        - {x: 8, y: -7}
+        - {x: 9, y: -4}
+        - {x: 8, y: 6}
+        - {x: 7, y: 8}
       tessellationDetail: 0
-    - serializedVersion: 2
-      name: shot_glow_animation_2
+    - name: shot_glow_animation_2
       rect:
         serializedVersion: 2
         x: 64
@@ -92,7 +102,15 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -5, y: 8}
+        - {x: -9, y: 2}
+        - {x: -9, y: -4}
+        - {x: -1, y: -7}
+        - {x: 8, y: -7}
+        - {x: 9, y: -4}
+        - {x: 8, y: 6}
+        - {x: 7, y: 8}
       tessellationDetail: 0
     outline: []
   spritePackingTag: 

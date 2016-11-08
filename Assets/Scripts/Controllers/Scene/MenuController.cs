@@ -15,6 +15,8 @@ public class MenuController : SceneController {
     public GameObject leaderboard_go;
     private UIButton leaderboard_button;
 
+	public GameObject menuPanel;
+
     protected new void Awake(){
 		base.Awake();
         this.addMainCamera();
@@ -24,6 +26,7 @@ public class MenuController : SceneController {
     // Use this for initialization
     protected new void Start () {
 		base.Start ();
+		this.resolution = this.camera_controller.resolution;
 		Sprite sprite = Resources.Load<Sprite>("Sprites/explosion");
 		//this.background_image.sprite = sprite;
 		//this.background_image.color = Color.red;
@@ -37,6 +40,11 @@ public class MenuController : SceneController {
     // Update is called once per frame
     protected new void Update () {
 		base.Update ();
+		if (!this.resolution.Equals(this.camera_controller.resolution))
+		{
+			this.onResolutionChanged();
+			this.resolution = this.camera_controller.resolution;
+		}
 	}
 
 	private void start_game(){
@@ -56,7 +64,16 @@ public class MenuController : SceneController {
     private void addMainCamera()
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/MenuCamera", typeof(GameObject));
-        GameController.Camera = Instantiate(prefab);
+        MenuController.Camera = Instantiate(prefab);
+		this.camera_controller = MenuController.Camera.GetComponent<CameraController>();
+
     }
+
+	public override void onResolutionChanged()
+	{	
+		if (this.menuPanel != null) {
+			this.menuPanel.GetComponent<GridController>().onResolutionChanged();
+		}
+	}
 
 }
