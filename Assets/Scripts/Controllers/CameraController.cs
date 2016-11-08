@@ -45,16 +45,12 @@ public class CameraController : Controller
 		this.transform.position = new Vector3(0, 0, -10);
 		this.main_camera.orthographic = true;
 		this.main_camera.depth = -1;
-		//this.main_camera.orthographicSize = 5;
-		//this.update_camera_size();
+		this.main_camera.orthographicSize = 80;
+		this.update_camera_size();
 	}
 
 	public void update_camera_size()
 	{
-      
-        //Debug.Log(this.main_camera.orthographicSize.ToString());
-        //Debug.Log(scale.ToString());
-        //Debug.Log(pixels_to_units.ToString());
-        //this.resolution = new CameraResolution(this.main_camera);
+        this.resolution = new CameraResolution(this.main_camera);
 	}
 }
