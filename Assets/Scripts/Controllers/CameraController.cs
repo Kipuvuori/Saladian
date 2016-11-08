@@ -18,16 +18,13 @@ public class CameraController : Controller
 		this.name = CameraData.name;
 		this.main_camera = this.GetComponent<Camera>();
 		this.init();
-
-		var camera = GetComponent<Camera> ();
-		if (camera.orthographic) {
-			scale = Screen.height / native_resolution.y;
-			pixels_to_units *= scale;
-			camera.orthographicSize = (Screen.height / 2.0f / pixels_to_units);
-		}
-
-
-	}
+        if (this.main_camera.orthographic)
+        {
+            scale = Screen.height / native_resolution.y;
+            pixels_to_units *= scale;
+            this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
+        }
+    }
 
 	// Use this for initialization
 	protected new void Start() {
@@ -48,13 +45,16 @@ public class CameraController : Controller
 		this.transform.position = new Vector3(0, 0, -10);
 		this.main_camera.orthographic = true;
 		this.main_camera.depth = -1;
-		this.main_camera.orthographicSize = 5;
-		this.update_camera_size();
+		//this.main_camera.orthographicSize = 5;
+		//this.update_camera_size();
 	}
 
 	public void update_camera_size()
-	{	
-
-		this.resolution = new CameraResolution(this.main_camera);
+	{
+      
+        //Debug.Log(this.main_camera.orthographicSize.ToString());
+        //Debug.Log(scale.ToString());
+        //Debug.Log(pixels_to_units.ToString());
+        //this.resolution = new CameraResolution(this.main_camera);
 	}
 }
