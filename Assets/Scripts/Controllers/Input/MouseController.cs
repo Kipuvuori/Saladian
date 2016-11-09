@@ -6,7 +6,7 @@ public class MouseController : InputController {
     public const int LEFT = 0;
     public const int RIGHT = 1;
     public const int MIDDLE = 2;
-    public bool shooting = false;
+    private bool shooting = false;
 
     protected new void Awake()
     {

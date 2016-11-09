@@ -19,7 +19,7 @@ public class PlayerController : ObjectController {
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");
         else
         {
-            this.ship.sprite_renderer.color = Color.red;
+            //this.ship.sprite_renderer.color = Color.red;
             this.ship.toMiddleOfScreen();
             this.ship.data.health = 4; // Players ship can take 4 hits
             this.ship.keep_inside_camera = true;
