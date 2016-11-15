@@ -34,6 +34,7 @@ public class GridController : UIController {
 
     public bool resize()
     {
+		Debug.Log ("resising");
         int child_count = this.transform.childCount;
         if (child_count <= 0) return true;
         if (grid_layout == null) return false;
