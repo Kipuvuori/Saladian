@@ -124,5 +124,6 @@ public class GameController : SceneController
     public override void onResolutionChanged()
     {
         this.score_controller.onResolutionChanged();
+		if(this.camera_controller != null) this.camera_controller.onResolutionChanged ();
     }
 }

@@ -74,6 +74,8 @@ public class MenuController : SceneController {
 		if (this.menuPanel != null) {
 			this.menuPanel.GetComponent<GridController>().onResolutionChanged();
 		}
+		if(this.camera_controller != null) this.camera_controller.onResolutionChanged ();
+
 	}
 
 }

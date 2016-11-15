@@ -67,7 +67,8 @@ public class ShipController : MovementController
         GameObject shot = Instantiate(prefab);
         shot.transform.parent = this.gameObject.transform;
         ShotController controller = shot.GetComponent<ShotController>();
-        Vector2 location = new Vector2(this.transform.position.x, this.transform.position.y + 1);
+        Vector2 location = new Vector2(this.transform.position.x, this.transform.position.y + 1*CameraController.scale);
+		Debug.Log (1 * CameraController.scale);
         controller.shoot(location);
         if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("shot_fx")))
             this.animator.Play("shot_fx");

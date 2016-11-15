@@ -15,12 +15,19 @@ public class ShotController : ObjectController {
     // Use this for initialization
     protected new void Start () {
         base.Start();
+		var renderer = GetComponent<SpriteRenderer> ();
+
+		var collider = GetComponent<BoxCollider2D> ();
+		var size = renderer.bounds.size;
+
+		collider.size = size;
     }
 
     // Update is called once per frame
     protected new void Update () {
         base.Update();
 	}
+
 
     public void shoot(Vector2 position)
     {
