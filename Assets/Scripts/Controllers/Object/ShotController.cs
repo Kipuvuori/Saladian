@@ -20,7 +20,9 @@ public class ShotController : ObjectController {
 		var collider = GetComponent<BoxCollider2D> ();
 		var size = renderer.bounds.size;
 
-		collider.size = size;
+		//sprite is 2px wide out of 32px and 8px tall out of 32px
+ 		collider.size = new Vector2 (size.x/16,size.y/4f);
+
     }
 
     // Update is called once per frame
