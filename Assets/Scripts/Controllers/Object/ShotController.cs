@@ -41,10 +41,11 @@ public class ShotController : ObjectController {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name != this.gameObject.name)
-        {
-            this.takeDamage();
-        }
+		if (col.gameObject.name != this.gameObject.name) {
+			this.takeDamage ();
+		} else {
+			Physics2D.IgnoreCollision (col.collider, this.GetComponent<Collider2D> ());
+		}
     }
 
     void takeDamage(int amount = 1)
