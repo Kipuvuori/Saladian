@@ -5,10 +5,13 @@ public class ShotController : ObjectController {
 
     public float speed = 200f;
     private Rigidbody2D rigid_body;
+	public ShotData data;
 
     protected new void Awake()
     {
         base.Awake();
+		this.data = new ShotData();
+		this.name = ShotData.name;
         this.gameObject.SetActive(false);
     }
 
@@ -50,7 +53,11 @@ public class ShotController : ObjectController {
 
     void takeDamage(int amount = 1)
     {
-        this.destroy();
+		this.data.health -= amount;
+		if (this.data.health <= 0)
+		{
+			this.destroy();
+		}
     }
 
     public void OnBecameInvisible()
