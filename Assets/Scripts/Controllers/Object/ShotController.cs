@@ -7,6 +7,7 @@ public class ShotController : ObjectController {
     private Rigidbody2D rigid_body;
 	public ShotData data;
 
+
     protected new void Awake()
     {
         base.Awake();

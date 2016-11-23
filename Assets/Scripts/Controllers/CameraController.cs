@@ -11,6 +11,8 @@ public class CameraController : Controller
 
 	public CameraResolution resolution;
 
+	private bool scale_set = false;
+
 	protected new void Awake()
 	{
 		base.Awake();
@@ -31,6 +33,8 @@ public class CameraController : Controller
 	{
 		base.Update();
 		this.update_camera_size();
+		if (!this.scale_set)
+			this.set_camera_scale ();
 
 	}
 
@@ -52,15 +56,15 @@ public class CameraController : Controller
 	protected void set_camera_scale(){
 		if (this.main_camera.orthographic)
 		{	
-			pixels_to_units = 1;
 			scale = Screen.height / native_resolution.y;
 			pixels_to_units *= scale;
 			this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
+			this.scale_set = true;
 		}
 	}
 
 	public override void onResolutionChanged()
 	{
-		this.set_camera_scale();
+		this.scale_set = false;
 	}
 }
