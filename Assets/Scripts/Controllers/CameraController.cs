@@ -51,7 +51,8 @@ public class CameraController : Controller
 
 	protected void set_camera_scale(){
 		if (this.main_camera.orthographic)
-		{
+		{	
+			pixels_to_units = 1;
 			scale = Screen.height / native_resolution.y;
 			pixels_to_units *= scale;
 			this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
