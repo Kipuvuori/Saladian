@@ -37,7 +37,6 @@ public class ShipController : MovementController
 
     void OnCollisionEnter2D(Collision2D col)
     {
-		Debug.Log (col.gameObject.name);
 		if (col.gameObject.name == ObstacleData.name || col.gameObject.name == ShotData.name)
         {
             this.takeDamage();
@@ -72,17 +71,11 @@ public class ShipController : MovementController
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Shot", typeof(GameObject));
         GameObject shot = Instantiate(prefab);
-        //shot.transform.parent = this.gameObject.transform;
+        shot.transform.parent = this.gameObject.transform;
         ShotController controller = shot.GetComponent<ShotController>();
-		Debug.Log (this.transform.position.y);
 
-		Debug.Log (this.sprite_renderer.bounds.extents.y);
-		Debug.Log (this.MainCamera.orthographicSize * 2);
-		Debug.Log (this.sprite_renderer.bounds.extents.y / (this.MainCamera.orthographicSize * 2));
-
-		float y = this.transform.position.y + (this.sprite_renderer.bounds.extents.y / (this.MainCamera.orthographicSize * 2));
+		float y = this.transform.position.y + (this.sprite_renderer.sprite.rect.size.y);
 		Vector2 location = new Vector2(this.transform.position.x, y);
-		Debug.Log (y);
         controller.shoot(location);
         if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("shot_fx")))
             this.animator.Play("shot_fx");

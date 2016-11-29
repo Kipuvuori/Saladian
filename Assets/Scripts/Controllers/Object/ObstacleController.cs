@@ -77,7 +77,7 @@ public class ObstacleController : MovementController
 
 	public override void onResolutionChanged()
 	{
-		this.collider_set = false;
+        this.collider_set = false;
 	}
 
 }

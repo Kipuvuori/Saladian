@@ -13,7 +13,10 @@ public class CameraController : Controller
 
 	private bool scale_set = false;
 
-	protected new void Awake()
+    private static float desiredRatio = 0f;
+
+
+    protected new void Awake()
 	{
 		base.Awake();
 		this.data = new CameraData();
@@ -26,17 +29,19 @@ public class CameraController : Controller
 	// Use this for initialization
 	protected new void Start() {
 		base.Start();
-	}
+        desiredRatio = this.native_resolution.x / this.native_resolution.y;
+    }
 
 	// Update is called once per frame
 	protected new void Update()
 	{
 		base.Update();
 		this.update_camera_size();
-		if (!this.scale_set)
-			this.set_camera_scale ();
+        if (!this.scale_set) {
+            this.set_camera_scale ();
+        }
 
-	}
+    }
 
 	private void init()
 	{
@@ -55,11 +60,30 @@ public class CameraController : Controller
 
 	protected void set_camera_scale(){
 		if (this.main_camera.orthographic)
-		{	
-			scale = Screen.height / native_resolution.y;
-			pixels_to_units *= scale;
-			this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
-			this.scale_set = true;
+		{
+            float currentRatio = (float)Screen.width / (float)Screen.height;
+
+            if (currentRatio >= desiredRatio)
+            {
+                // Our resolution has plenty of width, so we just need to use the height to determine the camera size
+                Camera.main.orthographicSize = native_resolution.y / 4;
+            }
+            else
+            {
+                // Our camera needs to zoom out further than just fitting in the height of the image.
+                // Determine how much bigger it needs to be, then apply that to our original algorithm.
+                float differenceInSize = desiredRatio / currentRatio;
+                Camera.main.orthographicSize = native_resolution.y / 4 * differenceInSize;
+            }
+
+            scale = Screen.height / native_resolution.y;
+            //pixels_to_units *= scale;
+            //this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
+
+            Debug.Log(Camera.main.orthographicSize);
+
+
+            this.scale_set = true;
 		}
 	}
 
