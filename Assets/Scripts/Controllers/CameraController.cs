@@ -5,16 +5,17 @@ public class CameraController : Controller
 	public static float pixels_to_units = 1f;
 	public static float scale = 1;
 
-	public Vector2 native_resolution = new Vector2(720, 480);
+	public Vector2 native_resolution = new Vector2(540,960);
 	public Camera main_camera;
 	public CameraData data;
-
 	public CameraResolution resolution;
+    public bool preserver_aspectratio = true;
 
 	private bool scale_set = false;
 
     private static float desiredRatio = 0f;
 
+    static Camera backgroundCam;
 
     protected new void Awake()
 	{
@@ -59,7 +60,13 @@ public class CameraController : Controller
 	}
 
 	protected void set_camera_scale(){
-		if (this.main_camera.orthographic)
+
+        if (backgroundCam)
+        {
+            Destroy(backgroundCam.gameObject);
+        }
+
+        if (this.main_camera.orthographic)
 		{
             float currentRatio = (float)Screen.width / (float)Screen.height;
 
@@ -67,6 +74,13 @@ public class CameraController : Controller
             {
                 // Our resolution has plenty of width, so we just need to use the height to determine the camera size
                 Camera.main.orthographicSize = native_resolution.y / 4;
+
+                if (this.preserver_aspectratio) {
+                    // Pillarbox
+                    float inset = 1.0f - desiredRatio / currentRatio;
+                    main_camera.rect = new Rect(inset / 2, 0.0f, 1.0f - inset, 1.0f);
+                }
+                
             }
             else
             {
@@ -74,8 +88,27 @@ public class CameraController : Controller
                 // Determine how much bigger it needs to be, then apply that to our original algorithm.
                 float differenceInSize = desiredRatio / currentRatio;
                 Camera.main.orthographicSize = native_resolution.y / 4 * differenceInSize;
+
+                if (this.preserver_aspectratio)
+                {
+                    // Letterbox
+                    float inset = 1.0f - desiredRatio / currentRatio;
+                    main_camera.rect = new Rect(0.0f, inset / 2, 1.0f, 1.0f - inset);
+                }
             }
 
+            if (this.preserver_aspectratio) {
+                if (!backgroundCam)
+                {
+                    // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
+                    backgroundCam = new GameObject("BackgroundCam", typeof(Camera)).GetComponent<Camera>();
+                    backgroundCam.depth = int.MinValue;
+                    backgroundCam.clearFlags = CameraClearFlags.SolidColor;
+                    backgroundCam.backgroundColor = Color.black;
+                    backgroundCam.cullingMask = 0;
+                }
+            }
+            
             scale = Screen.height / native_resolution.y;
            
             this.scale_set = true;

@@ -24,7 +24,7 @@ public class ShipController : MovementController
 		var renderer = GetComponent<SpriteRenderer> ();
 
 		var collider = GetComponent<BoxCollider2D> ();
-		var size = renderer.bounds.size;
+		var size = renderer.bounds.size*0.85f;
 
 		collider.size = size;
     }
