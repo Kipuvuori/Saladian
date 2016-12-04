@@ -77,12 +77,7 @@ public class CameraController : Controller
             }
 
             scale = Screen.height / native_resolution.y;
-            //pixels_to_units *= scale;
-            //this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
-
-            Debug.Log(Camera.main.orthographicSize);
-
-
+           
             this.scale_set = true;
 		}
 	}
