@@ -118,10 +118,8 @@ public class MovementController : ObjectController
 
     public void toMiddleOfScreen()
     {
-        float near_clip_plane = this.MainCamera.nearClipPlane;
-        Vector3 screen_point = new Vector3(Screen.width / 2, Screen.height / 2, near_clip_plane);
-        Vector3 camera_position = this.MainCamera.ScreenToWorldPoint(screen_point);
-        camera_position.z = this.transform.position.z;
+		Vector2 pos = new Vector2 (0.5f, 0.5f);
+		Vector2 camera_position = this.MainCamera.ViewportToWorldPoint(pos);
         transform.position = camera_position;
     }
 
