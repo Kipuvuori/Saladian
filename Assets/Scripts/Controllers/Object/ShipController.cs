@@ -71,7 +71,7 @@ public class ShipController : MovementController
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Shot", typeof(GameObject));
         GameObject shot = Instantiate(prefab);
-        shot.transform.parent = this.gameObject.transform;
+        //shot.transform.parent = this.gameObject.transform;
         ShotController controller = shot.GetComponent<ShotController>();
 
 		float y = this.transform.position.y + (this.sprite_renderer.sprite.rect.size.y);

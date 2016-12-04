@@ -5,7 +5,7 @@ public class CameraController : Controller
 	public static float pixels_to_units = 1f;
 	public static float scale = 1;
 
-	public Vector2 native_resolution = new Vector2(540,960);
+	public Vector2 native_resolution = new Vector2(432,768);
 	public Camera main_camera;
 	public CameraData data;
 	public CameraResolution resolution;
@@ -14,6 +14,7 @@ public class CameraController : Controller
 	private bool scale_set = false;
 
     private static float desiredRatio = 0f;
+    private static Color bg_color = new Color(0.3f, 0, 1, 0.4f);
 
     static Camera backgroundCam;
 
@@ -51,22 +52,17 @@ public class CameraController : Controller
 		this.main_camera.orthographic = true;
 		this.main_camera.depth = -1;
 		this.main_camera.orthographicSize = 80;
-        this.main_camera.backgroundColor = new Color(0.3f, 0, 1, 0.4f);
+        this.main_camera.backgroundColor = bg_color;
         this.update_camera_size();
 	}
 
 	public void update_camera_size()
 	{
         this.resolution = new CameraResolution(this.main_camera);
-	}
+        this.main_camera.backgroundColor = bg_color;
+    }
 
-	protected void set_camera_scale(){
-
-        if (backgroundCam)
-        {
-            Destroy(backgroundCam.gameObject);
-        }
-
+    protected void set_camera_scale(){
         if (this.main_camera.orthographic)
 		{
             float currentRatio = (float)Screen.width / (float)Screen.height;
@@ -99,6 +95,10 @@ public class CameraController : Controller
             }
 
             if (this.preserver_aspectratio) {
+                if (backgroundCam)
+                {
+                    Destroy(backgroundCam.gameObject);
+                }
                 if (!backgroundCam)
                 {
                     // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
