@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : ObjectController {
 
     private GameObject health_panel;
-    private ShipController ship;
+    public ShipController ship;
     public PlayerData data;
     protected new void Awake()
     {

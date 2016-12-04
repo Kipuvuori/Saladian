@@ -5,10 +5,12 @@ public class ShotController : ObjectController {
 
     public float speed = 200f;
     private Rigidbody2D rigid_body;
-
+    public ShotData data;
     protected new void Awake()
     {
         base.Awake();
+        this.data = new ShotData();
+        this.name = ShotData.name;
         this.gameObject.SetActive(false);
     }
 
@@ -22,11 +24,12 @@ public class ShotController : ObjectController {
         base.Update();
 	}
 
-    public void shoot(Vector2 position)
+    public void shoot(Vector2 position, Quaternion rotation)
     {
         this.gameObject.SetActive(true);
         this.transform.position = position;
         this.rigid_body = this.GetComponent<Rigidbody2D>();
+        transform.rotation = rotation;
         this.rigid_body.AddForce(this.transform.up * speed);
     }
 

@@ -91,19 +91,26 @@ public class MovementController : ObjectController
         // Setting directional degrees to 0 - 360
         while (direction < 0) direction += full_cirle;
         while (direction > full_cirle) direction -= full_cirle;
-        //transform.Rotate(direction, Space.World);
         Vector3 current_rotation = new Vector3(0, 0, direction);
+        //transform.Rotate(current_rotation, Space.World);
         this.transform.localEulerAngles = current_rotation;
 
-        current_position = current_position + transform.right * distance;
+        current_position = current_position + transform.up * distance;
         return move(current_position, confine_to_camera);
     }
 
-    public Vector3 move(Vector3 position, bool confine_to_camera = true)
+    public Vector3 move(Vector3 position, bool confine_to_camera = true, bool rotate = false)
     {
         if(confine_to_camera)
         {
             position = this.getConfinedPosition(position);
+        }
+        if(rotate)
+        {
+            Vector3 diff = position - this.transform.position;
+            diff.Normalize();
+            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
         }
         this.transform.position = position;
         return position;
@@ -115,6 +122,12 @@ public class MovementController : ObjectController
         Vector3 screen_point = new Vector3(Screen.width / 2, Screen.height / 2, near_clip_plane);
         Vector3 camera_position = this.MainCamera.ScreenToWorldPoint(screen_point);
         camera_position.z = this.transform.position.z;
+        transform.position = camera_position;
+    }
+
+    public void toCameraPoint(float x, float y)
+    {
+        Vector2 camera_position = this.MainCamera.ViewportToWorldPoint(new Vector2(x, y));
         transform.position = camera_position;
     }
 }

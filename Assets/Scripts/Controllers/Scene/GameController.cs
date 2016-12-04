@@ -22,12 +22,14 @@ public class GameController : SceneController
     public const string COLLIDER = "collider";
 
     public float last_obstacle = 0;
+    private List<GameObject> enemies;
 
 
     protected new void Awake()
     {
         base.Awake();
         this.obstacles = new List<GameObject>();
+        this.enemies = new List<GameObject>();
         GameController.ObstacleMama = new GameObject("Obstacles");
         this.score_controller = this.transform.GetComponent<ScoreController>();
         this.addElements();
@@ -56,6 +58,10 @@ public class GameController : SceneController
         {
             this.onResolutionChanged();
             this.resolution = this.camera_controller.resolution;
+        }
+        if(Time.realtimeSinceStartup > (this.enemies.Count + 1) * 5)
+        {
+            this.addEnemy();
         }
     }
 
@@ -89,6 +95,12 @@ public class GameController : SceneController
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Obstacle", typeof(GameObject));
         this.obstacles.Add(Instantiate(prefab));
+    }
+
+    private void addEnemy()
+    {
+        GameObject prefab = (GameObject)Resources.Load("Prefabs/Enemy", typeof(GameObject));
+        this.enemies.Add(Instantiate(prefab));
     }
 
     public static bool GameOver()

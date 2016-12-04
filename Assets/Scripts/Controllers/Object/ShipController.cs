@@ -31,7 +31,7 @@ public class ShipController : MovementController
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name == ObstacleData.name)
+        if (col.gameObject.name == ObstacleData.name || col.gameObject.name == ShotData.name)
         {
             this.takeDamage();
         }
@@ -43,6 +43,10 @@ public class ShipController : MovementController
         if (this.parent.name == PlayerData.name)
         {
             this.parent.GetComponent<PlayerController>().shipTookDamage(amount);
+        }
+        else if (this.parent.name == EnemyData.name)
+        {
+            this.parent.GetComponent<EnemyController>().shipTookDamage(amount);
         }
 
         if (this.data.health <= 0)
@@ -59,16 +63,25 @@ public class ShipController : MovementController
         {
             this.parent.GetComponent<PlayerController>().shipDestroyed();
         }
+        else if (this.parent.name == EnemyData.name)
+        {
+            this.parent.GetComponent<EnemyController>().shipDestroyed();
+        }
     }
 
     public void shoot()
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Shot", typeof(GameObject));
         GameObject shot = Instantiate(prefab);
-        shot.transform.parent = this.gameObject.transform;
+        //shot.transform.parent = this.gameObject.transform;
         ShotController controller = shot.GetComponent<ShotController>();
-        Vector2 location = new Vector2(this.transform.position.x, this.transform.position.y + 1);
-        controller.shoot(location);
+        float y = this.transform.position.y + (this.sprite_renderer.sprite.rect.size.y);
+        Vector2 location = new Vector2(this.transform.position.x, y);
+        Quaternion rotation = this.transform.rotation;
+        Vector3 angles = rotation.eulerAngles;
+        location = Quaternion.Euler(0, 0, angles.z) * location;
+
+        controller.shoot(location, rotation);
         if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("shot_fx")))
             this.animator.Play("shot_fx");
     }

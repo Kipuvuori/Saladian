@@ -31,6 +31,8 @@ public class ObjectController : Controller
     {
         if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("Explosion")))
         {
+            SpriteRenderer sprite_renderer = this.GetComponent<SpriteRenderer>();
+            if (sprite_renderer != null) sprite_renderer.color = Color.white;
             this.animator.Play("Explosion");
             Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         }
