@@ -5,7 +5,7 @@ public class CameraController : Controller
 	public static float pixels_to_units = 1f;
 	public static float scale = 1;
 
-	public Vector2 native_resolution = new Vector2(240,160);
+	public Vector2 native_resolution = new Vector2(720, 480);
 	public Camera main_camera;
 	public CameraData data;
 
