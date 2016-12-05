@@ -2,6 +2,9 @@
 
 public class ObstacleController : MovementController
 {
+    public AudioSource die_sound;
+
+
     private SpriteRenderer sprite_renderer;
     private ObstacleData data;
     private Rigidbody2D rigid_body;
@@ -27,7 +30,8 @@ public class ObstacleController : MovementController
         this.rigid_body = this.GetComponent<Rigidbody2D>();
         this.rigid_body.AddForce(this.transform.right * this.data.speed);
 
-	
+        this.die_sound = GetComponent<AudioSource>();
+
     }
 
     // Use this for initialization
@@ -71,6 +75,7 @@ public class ObstacleController : MovementController
         this.data.health -= amount;
         if (this.data.health <= 0)
         {
+            if (this.die_sound != null) this.die_sound.Play();
             this.destroy();
         }
     }

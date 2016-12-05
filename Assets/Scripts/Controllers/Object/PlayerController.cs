@@ -20,7 +20,7 @@ public class PlayerController : ObjectController {
         else
         {
             this.ship.toMiddleOfScreen();
-            this.ship.data.health = 4000; // Players ship can take 4 hits
+            this.ship.data.health = 4; // Players ship can take 4 hits
             this.ship.keep_inside_camera = true;
             this.ship.GetComponent<Rigidbody2D>().isKinematic = true;
         }

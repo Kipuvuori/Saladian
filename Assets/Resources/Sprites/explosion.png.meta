@@ -13,12 +13,12 @@ TextureImporter:
     21300012: explosion_6
     21300014: explosion_7
     21300016: explosion_8
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -30,10 +30,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 2048
@@ -44,9 +42,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -54,13 +50,52 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: 4
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: explosion_0
+    - serializedVersion: 2
+      name: explosion_0
       rect:
         serializedVersion: 2
         x: 0
@@ -70,17 +105,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 0, y: 5}
-        - {x: -3, y: 5}
-        - {x: -5, y: 2}
-        - {x: -5, y: -4}
-        - {x: -2, y: -5}
-        - {x: 3, y: -5}
-        - {x: 4, y: -2}
-        - {x: 4, y: 3}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_1
+    - serializedVersion: 2
+      name: explosion_1
       rect:
         serializedVersion: 2
         x: 32
@@ -90,18 +118,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -8, y: -5}
-        - {x: -5, y: -7}
-        - {x: 1, y: -7}
-        - {x: 8, y: -3}
-        - {x: 8, y: 2}
-        - {x: 7, y: 6}
-        - {x: 4, y: 8}
-        - {x: -3, y: 8}
-        - {x: -8, y: 6}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_2
+    - serializedVersion: 2
+      name: explosion_2
       rect:
         serializedVersion: 2
         x: 64
@@ -111,15 +131,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -8, y: 8}
-        - {x: -8, y: -5}
-        - {x: -6, y: -7}
-        - {x: 8, y: -7}
-        - {x: 8, y: 6}
-        - {x: 4, y: 8}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_3
+    - serializedVersion: 2
+      name: explosion_3
       rect:
         serializedVersion: 2
         x: 0
@@ -129,34 +144,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 6, y: -9}
-        - {x: 5, y: -10}
-        - {x: 5, y: -13}
-        - {x: 6, y: -16}
-        - {x: 11, y: -16}
-        - {x: 13, y: -15}
-        - {x: 13, y: -9}
-      - - {x: -5, y: -13}
-        - {x: -2, y: -12}
-        - {x: -2, y: -9}
-        - {x: -5, y: -8}
-        - {x: -7, y: -10}
-      - - {x: -7, y: 9}
-        - {x: -12, y: 5}
-        - {x: -12, y: -6}
-        - {x: -11, y: -9}
-        - {x: 4, y: -9}
-        - {x: 8, y: -4}
-        - {x: 8, y: 9}
-        - {x: 5, y: 10}
-      - - {x: 10, y: -6}
-        - {x: 13, y: -5}
-        - {x: 13, y: -2}
-        - {x: 10, y: -1}
-        - {x: 8, y: -3}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_4
+    - serializedVersion: 2
+      name: explosion_4
       rect:
         serializedVersion: 2
         x: 32
@@ -166,21 +157,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -4, y: 16}
-        - {x: -4, y: 14}
-        - {x: -3, y: 12}
-        - {x: -4, y: 12}
-        - {x: -4, y: 14}
-        - {x: -5, y: 16}
-        - {x: -15, y: 16}
-        - {x: -16, y: 15}
-        - {x: -16, y: -16}
-        - {x: 16, y: -16}
-        - {x: 16, y: 15}
-        - {x: 15, y: 16}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_5
+    - serializedVersion: 2
+      name: explosion_5
       rect:
         serializedVersion: 2
         x: 64
@@ -190,28 +170,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: -10}
-        - {x: -16, y: -13}
-        - {x: -13, y: -16}
-        - {x: -10, y: -15}
-        - {x: -10, y: -12}
-        - {x: -13, y: -9}
-        - {x: -15, y: -9}
-      - - {x: 8, y: 16}
-        - {x: -4, y: 16}
-        - {x: -4, y: 14}
-        - {x: -2, y: 12}
-        - {x: -6, y: 14}
-        - {x: -16, y: 15}
-        - {x: -16, y: -7}
-        - {x: -6, y: -16}
-        - {x: 13, y: -16}
-        - {x: 15, y: -12}
-        - {x: 15, y: 9}
-        - {x: 14, y: 12}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_6
+    - serializedVersion: 2
+      name: explosion_6
       rect:
         serializedVersion: 2
         x: 0
@@ -221,28 +183,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: -10}
-        - {x: -16, y: -13}
-        - {x: -13, y: -16}
-        - {x: -10, y: -15}
-        - {x: -10, y: -12}
-        - {x: -13, y: -9}
-        - {x: -15, y: -9}
-      - - {x: 8, y: 16}
-        - {x: -4, y: 16}
-        - {x: -4, y: 14}
-        - {x: -2, y: 12}
-        - {x: -6, y: 14}
-        - {x: -16, y: 15}
-        - {x: -16, y: -7}
-        - {x: -6, y: -16}
-        - {x: 13, y: -16}
-        - {x: 15, y: -12}
-        - {x: 15, y: 9}
-        - {x: 14, y: 12}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_7
+    - serializedVersion: 2
+      name: explosion_7
       rect:
         serializedVersion: 2
         x: 32
@@ -252,28 +196,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: -10}
-        - {x: -16, y: -13}
-        - {x: -13, y: -16}
-        - {x: -10, y: -15}
-        - {x: -10, y: -12}
-        - {x: -13, y: -9}
-        - {x: -15, y: -9}
-      - - {x: 8, y: 16}
-        - {x: -4, y: 16}
-        - {x: -4, y: 14}
-        - {x: -2, y: 12}
-        - {x: -6, y: 14}
-        - {x: -16, y: 15}
-        - {x: -16, y: -7}
-        - {x: -6, y: -16}
-        - {x: 13, y: -16}
-        - {x: 15, y: -12}
-        - {x: 15, y: 9}
-        - {x: 14, y: 12}
+      outline: []
       tessellationDetail: 0
-    - name: explosion_8
+    - serializedVersion: 2
+      name: explosion_8
       rect:
         serializedVersion: 2
         x: 64
@@ -283,25 +209,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -16, y: -10}
-        - {x: -16, y: -13}
-        - {x: -13, y: -16}
-        - {x: -10, y: -15}
-        - {x: -10, y: -12}
-        - {x: -13, y: -9}
-        - {x: -15, y: -9}
-      - - {x: -4, y: 16}
-        - {x: -4, y: 14}
-        - {x: -2, y: 12}
-        - {x: -6, y: 14}
-        - {x: -16, y: 15}
-        - {x: -16, y: -5}
-        - {x: -13, y: -9}
-        - {x: -3, y: -16}
-        - {x: 15, y: -16}
-        - {x: 15, y: 12}
-        - {x: 10, y: 16}
+      outline: []
       tessellationDetail: 0
     outline: []
   spritePackingTag: 

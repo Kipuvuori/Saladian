@@ -5,16 +5,18 @@ public class CameraController : Controller
 	public static float pixels_to_units = 1f;
 	public static float scale = 1;
 
-	public Vector2 native_resolution = new Vector2(240,160);
+	public Vector2 native_resolution = new Vector2(432,768);
 	public Camera main_camera;
 	public CameraData data;
-
 	public CameraResolution resolution;
+    public bool preserve_aspectratio = true;
 
 	private bool scale_set = false;
 
     private static float desiredRatio = 0f;
+    private static Color bg_color = new Color(0.3f, 0, 1, 0.4f);
 
+    static Camera backgroundCam;
 
     protected new void Awake()
 	{
@@ -50,16 +52,18 @@ public class CameraController : Controller
 		this.main_camera.orthographic = true;
 		this.main_camera.depth = -1;
 		this.main_camera.orthographicSize = 80;
-		this.update_camera_size();
+        this.main_camera.backgroundColor = bg_color;
+        this.update_camera_size();
 	}
 
 	public void update_camera_size()
 	{
         this.resolution = new CameraResolution(this.main_camera);
-	}
+        this.main_camera.backgroundColor = bg_color;
+    }
 
-	protected void set_camera_scale(){
-		if (this.main_camera.orthographic)
+    protected void set_camera_scale(){
+        if (this.main_camera.orthographic)
 		{
             float currentRatio = (float)Screen.width / (float)Screen.height;
 
@@ -67,6 +71,13 @@ public class CameraController : Controller
             {
                 // Our resolution has plenty of width, so we just need to use the height to determine the camera size
                 Camera.main.orthographicSize = native_resolution.y / 4;
+
+                if (this.preserve_aspectratio) {
+                    // Pillarbox
+                    float inset = 1.0f - desiredRatio / currentRatio;
+                    main_camera.rect = new Rect(inset / 2, 0.0f, 1.0f - inset, 1.0f);
+                }
+                
             }
             else
             {
@@ -74,15 +85,33 @@ public class CameraController : Controller
                 // Determine how much bigger it needs to be, then apply that to our original algorithm.
                 float differenceInSize = desiredRatio / currentRatio;
                 Camera.main.orthographicSize = native_resolution.y / 4 * differenceInSize;
+
+                if (this.preserve_aspectratio)
+                {
+                    // Letterbox
+                    float inset = 1.0f - desiredRatio / currentRatio;
+                    main_camera.rect = new Rect(0.0f, inset / 2, 1.0f, 1.0f - inset);
+                }
             }
 
+            if (this.preserve_aspectratio) {
+                if (backgroundCam)
+                {
+                    Destroy(backgroundCam.gameObject);
+                }
+                if (!backgroundCam)
+                {
+                    // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
+                    backgroundCam = new GameObject("BackgroundCam", typeof(Camera)).GetComponent<Camera>();
+                    backgroundCam.depth = int.MinValue;
+                    backgroundCam.clearFlags = CameraClearFlags.SolidColor;
+                    backgroundCam.backgroundColor = Color.black;
+                    backgroundCam.cullingMask = 0;
+                }
+            }
+            
             scale = Screen.height / native_resolution.y;
-            //pixels_to_units *= scale;
-            //this.main_camera.orthographicSize = (Screen.height / 2.0f) / pixels_to_units;
-
-            Debug.Log(Camera.main.orthographicSize);
-
-
+           
             this.scale_set = true;
 		}
 	}
