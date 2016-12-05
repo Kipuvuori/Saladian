@@ -9,7 +9,7 @@ public class CameraController : Controller
 	public Camera main_camera;
 	public CameraData data;
 	public CameraResolution resolution;
-    public bool preserver_aspectratio = true;
+    public bool preserve_aspectratio = true;
 
 	private bool scale_set = false;
 
@@ -72,7 +72,7 @@ public class CameraController : Controller
                 // Our resolution has plenty of width, so we just need to use the height to determine the camera size
                 Camera.main.orthographicSize = native_resolution.y / 4;
 
-                if (this.preserver_aspectratio) {
+                if (this.preserve_aspectratio) {
                     // Pillarbox
                     float inset = 1.0f - desiredRatio / currentRatio;
                     main_camera.rect = new Rect(inset / 2, 0.0f, 1.0f - inset, 1.0f);
@@ -86,7 +86,7 @@ public class CameraController : Controller
                 float differenceInSize = desiredRatio / currentRatio;
                 Camera.main.orthographicSize = native_resolution.y / 4 * differenceInSize;
 
-                if (this.preserver_aspectratio)
+                if (this.preserve_aspectratio)
                 {
                     // Letterbox
                     float inset = 1.0f - desiredRatio / currentRatio;
@@ -94,7 +94,7 @@ public class CameraController : Controller
                 }
             }
 
-            if (this.preserver_aspectratio) {
+            if (this.preserve_aspectratio) {
                 if (backgroundCam)
                 {
                     Destroy(backgroundCam.gameObject);
