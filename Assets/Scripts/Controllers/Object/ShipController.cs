@@ -83,7 +83,7 @@ public class ShipController : MovementController
         //shot.transform.parent = this.gameObject.transform;
         ShotController controller = shot.GetComponent<ShotController>();
         Quaternion rotation = this.transform.rotation;
-        Vector2 location = Tools.FrontOfSprite(this.sprite_renderer.sprite, this.transform.position, rotation);
+        Vector2 location = this.frontOfSprite();
         controller.shoot(location, rotation);
         if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("shot_fx")))
             this.animator.Play("shot_fx");

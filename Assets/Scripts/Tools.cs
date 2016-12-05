@@ -101,6 +101,5 @@ public static class Tools {
         Vector2 point = new Vector2(ship_center.x, y);
         float degrees = rotation.eulerAngles.z;
         return Tools.TurnAroundPoint(position, point, degrees);
-
     }
 }

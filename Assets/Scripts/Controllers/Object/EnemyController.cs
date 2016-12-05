@@ -86,9 +86,33 @@ public class EnemyController : ObjectController
         this.ai_shoot_cycle += deltaTime;
         if(this.ai_shoot_cycle >= this.ai_shoot_between)
         {
-            this.shoot();
+            GameObject inFront = this.whoIsFront();
+            if (inFront != null )
+            {
+                if (inFront.GetComponentInParent<PlayerController>() != null || inFront.GetComponent<ObstacleController>())
+                {
+                    this.shoot();
+                }
+            }
             this.ai_shoot_cycle = 0.0f;
         }
+    }
+
+    GameObject whoIsFront()
+    {
+        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(this.ship.transform.position, this.ship.transform.up);
+        if (hitInfos == null || hitInfos.Length <= 0) return null;
+        Debug.Log(hitInfos.Length);
+        foreach(RaycastHit2D hitInfo in hitInfos)
+        {
+            if(hitInfo.collider != null && hitInfo.collider.gameObject != null)
+            {
+                GameObject go = hitInfo.collider.gameObject;
+                if (go != this.gameObject && go != this.ship.gameObject && go.name != ShotData.name) return go;
+            }
+        }
+        return null;
+
     }
 
     void setPlayerToHunt()

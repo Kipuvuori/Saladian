@@ -44,4 +44,14 @@ public class ObjectController : Controller
         else Destroy(this.gameObject);
     }
 
+    public Vector2 frontOfSprite()
+    {
+        if(this.sprite_renderer == null || this.sprite_renderer.sprite == null)
+        {
+            Debug.LogError("ERROR: ObjectController: frontOfSprit: No sprite rendere or spire!");
+            return Vector2.zero;
+        }
+        return Tools.FrontOfSprite(this.sprite_renderer.sprite, this.transform.position, this.transform.rotation);
+    }
+
 }

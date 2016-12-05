@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShotController : ObjectController {
 
-    public float speed = 200f;
+    public int speed = 10;
     private Rigidbody2D rigid_body;
     private SpriteRenderer renderer;
 	public ShotData data;
@@ -47,7 +47,8 @@ public class ShotController : ObjectController {
         this.transform.position = position;
         this.rigid_body = this.GetComponent<Rigidbody2D>();
         transform.rotation = rotation;
-        this.rigid_body.AddForce(this.transform.up * speed);
+        Vector2 force = this.transform.up * this.speed;
+        this.rigid_body.AddForce(force);
     }
 
     void OnCollisionEnter2D(Collision2D col)

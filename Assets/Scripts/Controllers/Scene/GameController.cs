@@ -61,7 +61,7 @@ public class GameController : SceneController
             this.onResolutionChanged();
             this.resolution = this.camera_controller.resolution;
         }
-        if(Time.realtimeSinceStartup > (this.enemies.Count + 1) * 5)
+        if(Time.realtimeSinceStartup > (this.enemies.Count + 1) * 2)
         {
             this.addEnemy();
         }
