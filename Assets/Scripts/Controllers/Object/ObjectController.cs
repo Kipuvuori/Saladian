@@ -2,11 +2,16 @@
 
 public class ObjectController : Controller
 {
+  
     protected Animator animator = null;
+
+    private SpriteRenderer sprite_renderer;
+
     protected new void Awake()
     {
         base.Awake();
         this.animator = GetComponent<Animator>();
+        this.sprite_renderer = GetComponent<SpriteRenderer>();
     }
 
     // Use this for initialization
@@ -36,4 +41,5 @@ public class ObjectController : Controller
         }
         else Destroy(this.gameObject);
     }
+
 }

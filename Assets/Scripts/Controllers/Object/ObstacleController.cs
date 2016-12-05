@@ -2,9 +2,14 @@
 
 public class ObstacleController : MovementController
 {
+    public AudioSource die_sound;
+
+
     private SpriteRenderer sprite_renderer;
     private ObstacleData data;
     private Rigidbody2D rigid_body;
+
+	private bool collider_set = false;
 
     protected new void Awake()
     {
@@ -16,7 +21,6 @@ public class ObstacleController : MovementController
         position.z = 0;
         this.name = ObstacleData.name;
 
-
         this.transform.position = position;
         this.sprite_renderer = GetComponent<SpriteRenderer>();
         this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Obstacle");
@@ -25,13 +29,16 @@ public class ObstacleController : MovementController
 
         this.rigid_body = this.GetComponent<Rigidbody2D>();
         this.rigid_body.AddForce(this.transform.right * this.data.speed);
+
+        this.die_sound = GetComponent<AudioSource>();
+
     }
 
     // Use this for initialization
     protected new void Start()
     {
         base.Start();
-       
+
     }
 
     // Update is called once per frame
@@ -45,17 +52,12 @@ public class ObstacleController : MovementController
             
             this.data.last_move_time = 0;
         }
-        this.isOutside();
-    }
-
-
-    void isOutside()
-    {
-        /*Vector3 position = this.MainCamera.WorldToViewportPoint(this.transform.position);
-        
-        float x = position.x;
-        float y = position.x;
-        if (x + ObstacleData.OUTSIDE_BUFFER < 0 || x - ObstacleData.OUTSIDE_BUFFER > 1 || y + ObstacleData.OUTSIDE_BUFFER < 0 || y - ObstacleData.OUTSIDE_BUFFER > 1) Destroy(this);*/
+		if (!this.collider_set) {
+			//cirle inside box
+			var collider = GetComponent<CircleCollider2D> ();
+			collider.radius = this.sprite_renderer.sprite.bounds.size.x / 2.0f;
+			this.collider_set = true;
+		}
     }
 
     public void OnBecameInvisible()
@@ -73,8 +75,14 @@ public class ObstacleController : MovementController
         this.data.health -= amount;
         if (this.data.health <= 0)
         {
+            if (this.die_sound != null) this.die_sound.Play();
             this.destroy();
         }
     }
+
+	public override void onResolutionChanged()
+	{
+        this.collider_set = false;
+	}
 
 }

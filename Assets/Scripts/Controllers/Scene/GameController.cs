@@ -22,6 +22,7 @@ public class GameController : SceneController
     public const string COLLIDER = "collider";
 
     public float last_obstacle = 0;
+	public GameObject healthPanel;
 
 
     protected new void Awake()
@@ -39,6 +40,7 @@ public class GameController : SceneController
     {
         base.Start();
         this.resolution = this.camera_controller.resolution;
+		this.onResolutionChanged ();
     }
 
     // Update is called once per frame
@@ -124,5 +126,10 @@ public class GameController : SceneController
     public override void onResolutionChanged()
     {
         this.score_controller.onResolutionChanged();
+		if(this.camera_controller != null) this.camera_controller.onResolutionChanged ();
+		foreach (GameObject ob in this.obstacles) {
+			if(ob != null && ob.gameObject != null) ob.GetComponent<ObstacleController>().onResolutionChanged ();
+		}
+		this.healthPanel.GetComponent<GridController>().onResolutionChanged();
     }
 }
