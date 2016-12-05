@@ -68,7 +68,7 @@ public class EnemyController : ObjectController
 
     void aiMove(float deltaTime)
     {
-        if (this.player_to_hunt == null)
+        if (this.player_to_hunt == null || this.player_to_hunt.ship == null)
         {
             this.setPlayerToHunt();
             return;
@@ -76,7 +76,7 @@ public class EnemyController : ObjectController
         Vector2 player_position = this.player_to_hunt.ship.transform.position;
         Vector2 my_position = this.ship.transform.position;
 
-        Vector2 movement = Vector2.MoveTowards(my_position, player_position, this.data.speed);
+        Vector2 movement = Vector2.MoveTowards(my_position, player_position, this.data.speed*CameraController.scale);
 
         this.ship.move(movement, false, true);
     }

@@ -84,4 +84,23 @@ public static class Tools {
         }
         return name;
     }
+
+    static public Vector2 TurnAroundPoint(Vector2 center, Vector2 point, float degrees)
+    {
+        float angle_rad = degrees * Mathf.Deg2Rad;
+        Vector2 normalized = point - center;
+        float x_turned = normalized.x * Mathf.Cos(angle_rad) - normalized.y * Mathf.Sin(angle_rad);
+        float y_turned = normalized.x * Mathf.Sin(angle_rad) + normalized.y * Mathf.Cos(angle_rad);
+        return new Vector2(x_turned, y_turned) + center;
+    }
+
+    static public Vector2 FrontOfSprite(Sprite sprite, Vector2 position, Quaternion rotation)
+    {
+        Vector2 ship_center = new Vector2(position.x, position.y);
+        float y = ship_center.y + (sprite.rect.size.y);
+        Vector2 point = new Vector2(ship_center.x, y);
+        float degrees = rotation.eulerAngles.z;
+        return Tools.TurnAroundPoint(position, point, degrees);
+
+    }
 }

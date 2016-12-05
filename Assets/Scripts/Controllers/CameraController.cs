@@ -9,7 +9,7 @@ public class CameraController : Controller
 	public Camera main_camera;
 	public CameraData data;
 	public CameraResolution resolution;
-    public bool preserve_aspectratio = true;
+    public bool preserve_aspectratio = false;
 
 	private bool scale_set = false;
 

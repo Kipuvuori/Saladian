@@ -3,5 +3,5 @@
 public class EnemyData
 {
     public const string name = "Enemy";
-    public float speed = 0.1f;
+    public float speed = 2f;
 }
