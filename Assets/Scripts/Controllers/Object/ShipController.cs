@@ -14,13 +14,20 @@ public class ShipController : MovementController
         base.Awake();
         this.data = new ShipData();
         this.name = ShipData.name;
-        //this.sprite_renderer.sprite = Resources.Load<Sprite>("Sprites/Ship");
     }
 
     // Use this for initialization
     public new void Start () {
         base.Start();
         parent = this.transform.parent.gameObject;
+
+		var renderer = GetComponent<SpriteRenderer> ();
+
+		var collider = GetComponent<BoxCollider2D> ();
+        //make collider bit smaller than sprite
+		var size = renderer.bounds.size*0.85f;
+
+		collider.size = size;
     }
 
     // Update is called once per frame
@@ -31,9 +38,13 @@ public class ShipController : MovementController
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name == ObstacleData.name)
+		if (col.gameObject.name == ObstacleData.name || col.gameObject.name == ShotData.name || col.gameObject.name == ShipData.name)
         {
             this.takeDamage();
+        }
+        else
+        {
+            Debug.Log(col.gameObject.name);
         }
     }
 
@@ -43,6 +54,10 @@ public class ShipController : MovementController
         if (this.parent.name == PlayerData.name)
         {
             this.parent.GetComponent<PlayerController>().shipTookDamage(amount);
+        }
+        else if (this.parent.name == EnemyData.name)
+        {
+            this.parent.GetComponent<EnemyController>().shipTookDamage(amount);
         }
 
         if (this.data.health <= 0)
@@ -59,16 +74,21 @@ public class ShipController : MovementController
         {
             this.parent.GetComponent<PlayerController>().shipDestroyed();
         }
+        else if (this.parent.name == EnemyData.name)
+        {
+            this.parent.GetComponent<EnemyController>().shipDestroyed();
+        }
     }
 
     public void shoot()
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Shot", typeof(GameObject));
         GameObject shot = Instantiate(prefab);
-        shot.transform.parent = this.gameObject.transform;
+        //shot.transform.parent = this.gameObject.transform;
         ShotController controller = shot.GetComponent<ShotController>();
-        Vector2 location = new Vector2(this.transform.position.x, this.transform.position.y + 1);
-        controller.shoot(location);
+        Quaternion rotation = this.transform.rotation;
+        Vector2 location = this.frontOfSprite();
+        controller.shoot(location, rotation);
         if (this.animator != null && this.animator.HasState(0, Animator.StringToHash("shot_fx")))
             this.animator.Play("shot_fx");
     }

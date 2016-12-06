@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class InputController : Controller
 {
     private Camera MainCamera;
-    private GameObject selected;
+    protected GameObject selected;
 
     public InputData data;
     protected new void Awake()
@@ -29,12 +29,14 @@ public class InputController : Controller
         base.Update();
 
     }
-
+    /*
+    Not in use anymore
     public GameObject overGameObject(Vector3 screen_point, UnityAction<Vector2> action = null)
     {
         Vector2 position = this.MainCamera.ScreenToWorldPoint(screen_point);
         RaycastHit2D hitInfo = Physics2D.Raycast(position, Vector2.zero);
         if (hitInfo.collider != null) this.selected = hitInfo.transform.gameObject;
+        else this.selected = null;
         if (selected != null)
         {
             if (action != null) action(position);
@@ -42,6 +44,7 @@ public class InputController : Controller
         }
         return null;
     }
+    */
 
     public void releaseGameObject()
     {
@@ -54,10 +57,34 @@ public class InputController : Controller
         if (player != null) player.positionChanged(position);
     }
 
-    protected void shoot(Vector2 position)
+    protected void shoot()
     {
         PlayerController player = this.getPlayer();
         if (player != null) player.shoot();
+    }
+
+    protected bool movePlayer(Vector3 screen_point, bool checkDistance = true)
+    {
+        Vector2 position = this.MainCamera.ScreenToWorldPoint(screen_point);
+        RaycastHit2D hitInfo = Physics2D.Raycast(position, Vector2.zero);
+        PlayerController player = null;
+        if (hitInfo.collider == null || hitInfo.transform.gameObject == null)
+        {
+            if (this.selected == null) return false;
+            player = this.selected.GetComponentInParent<PlayerController>();
+        }
+        else
+        {
+            player = hitInfo.transform.gameObject.GetComponentInParent<PlayerController>();
+            this.selected = hitInfo.transform.gameObject;
+        }
+        if (player == null || player.ship == null) return false;
+        ShipController ship = player.ship;
+        float distance = Mathf.Abs(Vector2.Distance(ship.transform.position, position));
+        float radius = Mathf.Abs(ship.spriteRadius());
+        if (checkDistance && (radius * 2.0f) < distance) return false;
+        player.positionChanged(position);
+        return true;
     }
 
 
@@ -65,16 +92,10 @@ public class InputController : Controller
     {
         if (this.selected == null)
         {
-            Debug.LogError("Trying to get player from null selection");
             return null;
         }
         PlayerController player = this.selected.GetComponentInParent<PlayerController>();
         return player;
-    }
-
-    protected void shoot()
-    {
-
     }
 
     protected void quit()

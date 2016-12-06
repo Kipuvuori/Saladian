@@ -3,6 +3,8 @@ using System.Collections;
 
 public class TouchController : InputController {
 
+    private bool shooting = false;
+
     protected new void Awake()
     {
         base.Awake();
@@ -18,18 +20,42 @@ public class TouchController : InputController {
         base.Update();
         if (Input.touchCount > 0)
         {
-            this.touchDown();
+            this.computeFingers();
         }
-        else this.touchUp();
+        else this.noFingers();
     }
 
-    void touchDown()
+
+    void computeFingers()
     {
-        Vector3 position = Input.GetTouch(0).position;
-        this.overGameObject(position, this.tellPosition);
+        bool moved = false;
+        bool shooted = false;
+        foreach (Touch touch in Input.touches)
+        {
+            if (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)
+            {
+                Vector3 position = touch.position;
+                if (moved || !this.movePlayer(position))
+                {
+                    if (!shooted)
+                    {
+                        if(!shooting) this.shoot();
+                        shooted = true;
+                        shooting = true;
+                    }
+                }
+                else moved = true;
+            }
+        }
+
+        if(!shooted) shooting = false;
+        if(!moved) this.releaseGameObject();
     }
-    void touchUp()
+
+    
+    void noFingers()
     {
         this.releaseGameObject();
+        shooting = false;
     }
 }

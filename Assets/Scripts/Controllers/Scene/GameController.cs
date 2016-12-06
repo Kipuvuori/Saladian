@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,12 +23,16 @@ public class GameController : SceneController
     public const string COLLIDER = "collider";
 
     public float last_obstacle = 0;
-
+    private List<GameObject> enemies;
+	public GameObject healthPanel;
+    private const int SCORE_ENEMY_DIVIDER = 10;
+    private int enemy_waves = 1;
 
     protected new void Awake()
     {
         base.Awake();
         this.obstacles = new List<GameObject>();
+        this.enemies = new List<GameObject>();
         GameController.ObstacleMama = new GameObject("Obstacles");
         this.score_controller = this.transform.GetComponent<ScoreController>();
         this.addElements();
@@ -39,6 +44,7 @@ public class GameController : SceneController
     {
         base.Start();
         this.resolution = this.camera_controller.resolution;
+		this.onResolutionChanged ();
     }
 
     // Update is called once per frame
@@ -57,12 +63,21 @@ public class GameController : SceneController
             this.onResolutionChanged();
             this.resolution = this.camera_controller.resolution;
         }
+
+        double enemies_score = enemy_waves * SCORE_ENEMY_DIVIDER;
+        if (ScoreController.current_score > enemies_score)
+        {
+            int number_of_enemies = Mathf.FloorToInt(ScoreController.current_score / SCORE_ENEMY_DIVIDER);
+            Debug.Log(number_of_enemies);
+            for(int foo = 1; foo <= number_of_enemies; ++foo) this.addEnemy();
+            ++this.enemy_waves;
+        }
     }
 
     private void addElements()
     {
         addMainCamera();
-        addBackground();
+        //addBackground();
         addPlayer();
     }
 
@@ -89,6 +104,12 @@ public class GameController : SceneController
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Obstacle", typeof(GameObject));
         this.obstacles.Add(Instantiate(prefab));
+    }
+
+    private void addEnemy()
+    {
+        GameObject prefab = (GameObject)Resources.Load("Prefabs/Enemy", typeof(GameObject));
+        this.enemies.Add(Instantiate(prefab));
     }
 
     public static bool GameOver()
@@ -124,5 +145,11 @@ public class GameController : SceneController
     public override void onResolutionChanged()
     {
         this.score_controller.onResolutionChanged();
+		if(this.camera_controller != null) this.camera_controller.onResolutionChanged ();
+		foreach (GameObject ob in this.obstacles) {
+			if(ob != null && ob.gameObject != null) ob.GetComponent<ObstacleController>().onResolutionChanged ();
+		}
+		this.healthPanel.GetComponent<GridController>().onResolutionChanged();
+        //this.background.GetComponent<BackgroundController>().onResolutionChanged();
     }
 }

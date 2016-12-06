@@ -81,5 +81,7 @@ public class LeaderboardController : SceneController {
     public override void onResolutionChanged()
     {
         this.list.GetComponent<GridController>().onResolutionChanged();
+		if(this.camera_controller != null) this.camera_controller.onResolutionChanged ();
+
     }
 }

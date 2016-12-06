@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : ObjectController {
 
     private GameObject health_panel;
-    private ShipController ship;
+    public ShipController ship;
     public PlayerData data;
     protected new void Awake()
     {
@@ -19,7 +19,6 @@ public class PlayerController : ObjectController {
         if (this.ship == null) Debug.LogError("No ShipController for the PlayerController. Check the GameObject for missing Script!");
         else
         {
-            this.ship.sprite_renderer.color = Color.red;
             this.ship.toMiddleOfScreen();
             this.ship.data.health = 4; // Players ship can take 4 hits
             this.ship.keep_inside_camera = true;
@@ -58,18 +57,6 @@ public class PlayerController : ObjectController {
     {
         new_position.z = 0;
         this.ship.move(new_position);
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        Debug.Log(col.gameObject.name);
-        if (col.gameObject.name == "Obstacle")
-        {
-            Destroy(col.gameObject);
-            Destroy(this.gameObject);
-            Scene loadedLevel = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(loadedLevel.buildIndex);
-        }
     }
 
     public void shipTookDamage(int amount)
