@@ -38,7 +38,7 @@ public class ShipController : MovementController
 
     void OnCollisionEnter2D(Collision2D col)
     {
-		if (col.gameObject.name == ObstacleData.name || col.gameObject.name == ShotData.name)
+		if (col.gameObject.name == ObstacleData.name || col.gameObject.name == ShotData.name || col.gameObject.name == ShipData.name)
         {
             this.takeDamage();
         }

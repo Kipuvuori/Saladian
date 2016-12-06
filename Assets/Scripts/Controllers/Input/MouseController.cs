@@ -32,7 +32,7 @@ public class MouseController : InputController {
 
     void leftButtonDown()
     {
-        this.overGameObject(Input.mousePosition, this.tellPosition);
+        this.movePlayer(Input.mousePosition);
     }
     void leftButtonUp()
     {
@@ -42,7 +42,7 @@ public class MouseController : InputController {
     {
         if (!shooting)
         {
-            this.overGameObject(Input.mousePosition, this.shoot);
+            this.shoot();
             shooting = true;
         }
     }

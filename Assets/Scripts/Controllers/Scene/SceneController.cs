@@ -52,6 +52,16 @@ public class SceneController : Controller
     {
         GameObject prefab = (GameObject)Resources.Load("Prefabs/Input", typeof(GameObject));
         this.input = Instantiate(prefab);
+        if(Input.touchSupported)
+        {
+            this.input.AddComponent<TouchController>();
+        }
+        else
+        {
+            this.input.AddComponent<MouseController>();
+            this.input.AddComponent<KeyboardController>();
+            this.input.AddComponent<GamepadController>();
+        }
     }
 
     private void setTopList(List<Score> scores)
