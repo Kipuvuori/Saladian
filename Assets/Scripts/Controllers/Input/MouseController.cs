@@ -32,7 +32,7 @@ public class MouseController : InputController {
 
     void leftButtonDown()
     {
-        this.movePlayer(Input.mousePosition);
+        this.movePlayer(Input.mousePosition, false);
     }
     void leftButtonUp()
     {

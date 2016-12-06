@@ -31,7 +31,7 @@ public class EnemyController : ObjectController
             this.ship.data.health = 1; // Enenmy ship can take 1 hits
             this.ship.keep_inside_camera = false;
             this.ship.toCameraPoint(0.5f, 1.0f);
-            this.ship.GetComponent<Rigidbody2D>().isKinematic = true;
+            this.ship.GetComponent<Rigidbody2D>().isKinematic = false;
         }
         running = true;
     }
@@ -49,11 +49,6 @@ public class EnemyController : ObjectController
         if (this.running)
         {
             this.runAi(Time.deltaTime);
-            if (this.ai_shoot_cycle >= this.ai_shoot_between)
-            {
-                this.shoot();
-                this.ai_shoot_cycle = 0.0f;
-            }
         }
     }
 
@@ -91,7 +86,7 @@ public class EnemyController : ObjectController
             {
                 if (inFront.GetComponentInParent<PlayerController>() != null || inFront.GetComponent<ObstacleController>())
                 {
-                    this.shoot();
+                    //this.shoot();
                 }
             }
             this.ai_shoot_cycle = 0.0f;
@@ -102,7 +97,6 @@ public class EnemyController : ObjectController
     {
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(this.ship.transform.position, this.ship.transform.up);
         if (hitInfos == null || hitInfos.Length <= 0) return null;
-        Debug.Log(hitInfos.Length);
         foreach(RaycastHit2D hitInfo in hitInfos)
         {
             if(hitInfo.collider != null && hitInfo.collider.gameObject != null)
@@ -124,18 +118,6 @@ public class EnemyController : ObjectController
     {
         new_position.z = 0;
         this.ship.move(new_position);
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        Debug.Log(col.gameObject.name);
-        if (col.gameObject.name == "Obstacle")
-        {
-            Destroy(col.gameObject);
-            Destroy(this.gameObject);
-            Scene loadedLevel = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(loadedLevel.buildIndex);
-        }
     }
 
     public void shipTookDamage(int amount)

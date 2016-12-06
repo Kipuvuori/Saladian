@@ -63,7 +63,7 @@ public class InputController : Controller
         if (player != null) player.shoot();
     }
 
-    protected bool movePlayer(Vector3 screen_point)
+    protected bool movePlayer(Vector3 screen_point, bool checkDistance = true)
     {
         Vector2 position = this.MainCamera.ScreenToWorldPoint(screen_point);
         RaycastHit2D hitInfo = Physics2D.Raycast(position, Vector2.zero);
@@ -82,7 +82,7 @@ public class InputController : Controller
         ShipController ship = player.ship;
         float distance = Mathf.Abs(Vector2.Distance(ship.transform.position, position));
         float radius = Mathf.Abs(ship.spriteRadius());
-        if ((radius * 2.0f) < distance) return false;
+        if (checkDistance && (radius * 2.0f) < distance) return false;
         player.positionChanged(position);
         return true;
     }

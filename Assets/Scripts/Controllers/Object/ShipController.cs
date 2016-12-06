@@ -42,6 +42,10 @@ public class ShipController : MovementController
         {
             this.takeDamage();
         }
+        else
+        {
+            Debug.Log(col.gameObject.name);
+        }
     }
 
     void takeDamage(int amount = 1)
