@@ -28,7 +28,9 @@ public class ObstacleController : MovementController
         this.transform.localEulerAngles = this.data.rotation;
 
         this.rigid_body = this.GetComponent<Rigidbody2D>();
-        this.rigid_body.AddForce(this.transform.right * this.data.speed);
+        Vector2 force = this.transform.right * this.data.speed;
+        Debug.Log(force);
+        this.rigid_body.AddForce(force);
 
         this.die_sound = GetComponent<AudioSource>();
 
@@ -46,12 +48,6 @@ public class ObstacleController : MovementController
     {
         base.Update();
         this.data.last_move_time += Time.deltaTime;
-        if(this.data.last_move_time >= this.data.speed)
-        {
-            //this.move(this.data.direction, Obstacle.DISTANCE, false);
-            
-            this.data.last_move_time = 0;
-        }
 		if (!this.collider_set) {
 			//cirle inside box
 			var collider = GetComponent<CircleCollider2D> ();

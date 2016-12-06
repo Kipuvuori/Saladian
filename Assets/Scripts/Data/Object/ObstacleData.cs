@@ -4,9 +4,9 @@ using UnityEngine;
 public class ObstacleData {
     public Vector2 start_position;
     public int direction;
-    public float speed;
-    public const float SPEED_MIN = 20;
-    public const float SPEED_MAX = 200;
+    public int speed;
+    public const float SPEED_MIN = 50;
+    public const float SPEED_MAX = 10000;
     public const float DISTANCE = 0.1f;
     public float last_move_time = 0;
     public const float OUTSIDE_BUFFER = 0.2f;
@@ -49,6 +49,6 @@ public class ObstacleData {
         float y = (axis == 0) ? (float)side : place;
         this.start_viewport = new Vector3(x, y, 0f);
 
-        this.speed = Random.Range(ObstacleData.SPEED_MIN, ObstacleData.SPEED_MAX);
+        this.speed = (int)Random.Range(ObstacleData.SPEED_MIN, ObstacleData.SPEED_MAX);
     }
 }
