@@ -12,7 +12,7 @@ public class EnemyController : ObjectController
     float ai_run_cycle = 0.0f;
     float ai_tick = 0.1f;
     float ai_shoot_cycle = 0.0f;
-    float ai_shoot_between = 0.1f;
+    float ai_shoot_between = 0.3f;
     protected new void Awake()
     {
         base.Awake();
@@ -30,7 +30,7 @@ public class EnemyController : ObjectController
             this.ship.toMiddleOfScreen();
             this.ship.data.health = 1; // Enenmy ship can take 1 hits
             this.ship.keep_inside_camera = false;
-            this.ship.toCameraPoint(0.5f, 1.0f);
+            this.ship.toRandomPlaceOnBorder();
             this.ship.GetComponent<Rigidbody2D>().isKinematic = false;
         }
         running = true;
@@ -86,7 +86,7 @@ public class EnemyController : ObjectController
             {
                 if (inFront.GetComponentInParent<PlayerController>() != null || inFront.GetComponent<ObstacleController>())
                 {
-                    //this.shoot();
+                    this.shoot();
                 }
             }
             this.ai_shoot_cycle = 0.0f;

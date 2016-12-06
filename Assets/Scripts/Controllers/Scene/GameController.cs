@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,7 +25,8 @@ public class GameController : SceneController
     public float last_obstacle = 0;
     private List<GameObject> enemies;
 	public GameObject healthPanel;
-
+    private const int SCORE_ENEMY_DIVIDER = 10;
+    private int enemy_waves = 1;
 
     protected new void Awake()
     {
@@ -61,16 +63,21 @@ public class GameController : SceneController
             this.onResolutionChanged();
             this.resolution = this.camera_controller.resolution;
         }
-        if(Time.realtimeSinceStartup > (this.enemies.Count + 1) * 2)
+
+        double enemies_score = enemy_waves * SCORE_ENEMY_DIVIDER;
+        if (ScoreController.current_score > enemies_score)
         {
-            this.addEnemy();
+            int number_of_enemies = Mathf.FloorToInt(ScoreController.current_score / SCORE_ENEMY_DIVIDER);
+            Debug.Log(number_of_enemies);
+            for(int foo = 1; foo <= number_of_enemies; ++foo) this.addEnemy();
+            ++this.enemy_waves;
         }
     }
 
     private void addElements()
     {
         addMainCamera();
-        addBackground();
+        //addBackground();
         addPlayer();
     }
 
@@ -143,5 +150,6 @@ public class GameController : SceneController
 			if(ob != null && ob.gameObject != null) ob.GetComponent<ObstacleController>().onResolutionChanged ();
 		}
 		this.healthPanel.GetComponent<GridController>().onResolutionChanged();
+        //this.background.GetComponent<BackgroundController>().onResolutionChanged();
     }
 }

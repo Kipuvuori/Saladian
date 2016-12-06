@@ -128,4 +128,9 @@ public class MovementController : ObjectController
         Vector2 camera_position = this.MainCamera.ViewportToWorldPoint(new Vector2(x, y));
         transform.position = camera_position;
     }
+
+    public void toRandomPlaceOnBorder()
+    {
+        this.transform.position = this.MainCamera.ViewportToWorldPoint(Tools.RandomPlaceOnBorderViewPort());
+    }
 }

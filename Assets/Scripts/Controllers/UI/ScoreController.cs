@@ -22,7 +22,7 @@ public class ScoreController : UIController {
     public GameObject send_go;
     public InputField username;
 
-    public float current_score;
+    public static float current_score;
     private bool running;
     private UnityAction restart_action;
     private UnityAction quit_action;
@@ -34,7 +34,7 @@ public class ScoreController : UIController {
     // Use this for initialization
     new void Start () {
         base.Start();
-        this.current_score = 0.0f;
+        ScoreController.current_score = 0.0f;
         this.running = true;
         this.initializeGameOverPanel();
         StartCoroutine(REST.getScores(REST.LIMIT, this.updateScoreList));
@@ -118,12 +118,12 @@ public class ScoreController : UIController {
 
     int currentScore()
     {
-        return ((int)Math.Floor(current_score));
+        return ((int)Math.Floor(ScoreController.current_score));
     }
 
     void updateScore()
     {
-        current_score += Time.deltaTime;
+        ScoreController.current_score += Time.deltaTime;
         this.score.text = this.currentScore().ToString();
     }
 

@@ -69,4 +69,10 @@ public class BackgroundController : UIController
         camera_position.z = z;
         transform.position = camera_position;
     }
+
+    public override void onResolutionChanged()
+    {
+        this.Resize();
+        this.Reposition();
+    }
 }

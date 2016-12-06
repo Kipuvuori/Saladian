@@ -5,7 +5,7 @@ public class ShotController : ObjectController {
 
     public int speed = 10;
     private Rigidbody2D rigid_body;
-    private SpriteRenderer renderer;
+    private SpriteRenderer sprite_renderer;
 	public ShotData data;
     public AudioSource[] sounds;
     public AudioSource sound_laser;
@@ -22,10 +22,10 @@ public class ShotController : ObjectController {
     // Use this for initialization
     protected new void Start () {
         base.Start();
-		this.renderer = GetComponent<SpriteRenderer> ();
+		this.sprite_renderer = GetComponent<SpriteRenderer> ();
 
 		var collider = GetComponent<BoxCollider2D> ();
-		var size = this.renderer.bounds.size;
+		var size = this.sprite_renderer.bounds.size;
 
         this.sounds = GetComponents<AudioSource>();
         this.sound_laser = this.sounds[0];
@@ -67,7 +67,7 @@ public class ShotController : ObjectController {
 		if (this.data.health <= 0)
 		{
             //hide the shot. OnBecameInvisible will destroy it
-            this.renderer.enabled = false;
+            this.sprite_renderer.enabled = false;
 		}
     }
 

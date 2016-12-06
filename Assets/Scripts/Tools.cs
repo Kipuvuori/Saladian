@@ -103,4 +103,13 @@ public static class Tools {
         return Tools.TurnAroundPoint(position, point, degrees);
     }
 
+    static public Vector3 RandomPlaceOnBorderViewPort()
+    {
+        int axis = Random.Range(0, 2);
+        int side = Random.Range(0, 2);
+        float place = Random.Range(0f, 1f);
+        float x = (axis == 1) ? (float)side : place;
+        float y = (axis == 0) ? (float)side : place;
+        return new Vector3(x, y, 0f);
+    }
 }

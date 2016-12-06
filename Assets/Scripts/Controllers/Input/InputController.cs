@@ -92,7 +92,6 @@ public class InputController : Controller
     {
         if (this.selected == null)
         {
-            Debug.LogError("Trying to get player from null selection");
             return null;
         }
         PlayerController player = this.selected.GetComponentInParent<PlayerController>();

@@ -14,7 +14,7 @@ public class CameraController : Controller
 	private bool scale_set = false;
 
     private static float desiredRatio = 0f;
-    private static Color bg_color = new Color(0.3f, 0, 1, 0.4f);
+    private static Color bg_color = Color.black;//new Color(0.3f, 0, 1, 0.4f);
 
     static Camera backgroundCam;
 
@@ -101,11 +101,11 @@ public class CameraController : Controller
                 }
                 if (!backgroundCam)
                 {
-                    // Make a new camera behind the normal camera which displays black; otherwise the unused space is undefined
+                    // Make a new camera behind the normal camera which displays gray; otherwise the unused space is undefined
                     backgroundCam = new GameObject("BackgroundCam", typeof(Camera)).GetComponent<Camera>();
                     backgroundCam.depth = int.MinValue;
                     backgroundCam.clearFlags = CameraClearFlags.SolidColor;
-                    backgroundCam.backgroundColor = Color.black;
+                    backgroundCam.backgroundColor = Color.gray;
                     backgroundCam.cullingMask = 0;
                 }
             }
