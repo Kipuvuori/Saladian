@@ -29,7 +29,6 @@ public class ObstacleController : MovementController
 
         this.rigid_body = this.GetComponent<Rigidbody2D>();
         Vector2 force = this.transform.right * this.data.speed;
-        Debug.Log(force);
         this.rigid_body.AddForce(force);
 
         this.die_sound = GetComponent<AudioSource>();

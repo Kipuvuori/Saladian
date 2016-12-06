@@ -68,7 +68,6 @@ public class GameController : SceneController
         if (ScoreController.current_score > enemies_score)
         {
             int number_of_enemies = Mathf.FloorToInt(ScoreController.current_score / SCORE_ENEMY_DIVIDER);
-            Debug.Log(number_of_enemies);
             for(int foo = 1; foo <= number_of_enemies; ++foo) this.addEnemy();
             ++this.enemy_waves;
         }

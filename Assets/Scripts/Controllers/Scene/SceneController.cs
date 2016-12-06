@@ -55,6 +55,10 @@ public class SceneController : Controller
         if(Input.touchSupported)
         {
             this.input.AddComponent<TouchController>();
+            if(Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                this.input.AddComponent<MouseController>();
+            }
         }
         else
         {
@@ -62,6 +66,7 @@ public class SceneController : Controller
             this.input.AddComponent<KeyboardController>();
             this.input.AddComponent<GamepadController>();
         }
+
     }
 
     private void setTopList(List<Score> scores)
