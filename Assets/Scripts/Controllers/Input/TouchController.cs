@@ -39,9 +39,7 @@ public class TouchController : InputController {
                 {
                     if (!shooted)
                     {
-                        Debug.Log("SHOOOOTTINNNNGGG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        Debug.Log(this.selected);
-                        this.shoot();
+                        if(!shooting) this.shoot();
                         shooted = true;
                         shooting = true;
                     }
