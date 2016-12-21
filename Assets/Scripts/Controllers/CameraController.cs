@@ -119,5 +119,7 @@ public class CameraController : Controller
 	public override void onResolutionChanged()
 	{
 		this.scale_set = false;
-	}
+        var bg = GameObject.FindObjectOfType(typeof(TiledBackground)) as TiledBackground;
+        bg.Resize();
+    }
 }
