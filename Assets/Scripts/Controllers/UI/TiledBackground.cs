@@ -18,6 +18,7 @@ public class TiledBackground : MonoBehaviour
         var newHeight = Mathf.Ceil(Screen.height / (textureSize * CameraController.scale));
 
         transform.localScale = new Vector3(newWidth * textureSize, newHeight * textureSize, 1);
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, 12));
 
         GetComponent<Renderer>().material.mainTextureScale = new Vector3(newWidth, newHeight, 1);
     }
