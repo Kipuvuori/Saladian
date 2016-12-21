@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 class REST
 {
-    private const string restUrl = "http://vanillasky.ddns.me:5555";
+    private const string restUrl = "http://vanillasky.ddns.me:444";
     public const int LIMIT = 3;
 
     static public IEnumerator getScores(int limit = -1, UnityAction<List<Score>> action = null)
