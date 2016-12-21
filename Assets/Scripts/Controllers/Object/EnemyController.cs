@@ -18,7 +18,7 @@ public class EnemyController : ObjectController
         base.Awake();
         this.data = new EnemyData();
         this.name = EnemyData.name;
-        GameObject ship_prefab = (GameObject)Resources.Load("Prefabs/Ship", typeof(GameObject));
+        GameObject ship_prefab = (GameObject)Resources.Load("Prefabs/EnemyShip", typeof(GameObject));
         GameObject ship_game_object = Instantiate(ship_prefab);
         ship_game_object.SetActive(true);
         ship_game_object.transform.parent = this.transform;
@@ -26,7 +26,6 @@ public class EnemyController : ObjectController
         if (this.ship == null) Debug.LogError("No ShipController for the EnemyController. Check the GameObject for missing Script!");
         else
         {
-            this.ship.sprite_renderer.color = Color.green;
             this.ship.toMiddleOfScreen();
             this.ship.data.health = 1; // Enenmy ship can take 1 hits
             this.ship.keep_inside_camera = false;
